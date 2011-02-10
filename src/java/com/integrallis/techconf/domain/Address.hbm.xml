@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.integrallis.techconf.domain">
+	<class name="Address" table="address" lazy="false">
+		<id
+			column="PK_ID"
+			name="Id"
+			type="integer"
+		>
+			<generator class="identity" />
+		</id>
+		<property
+			length="64"
+			name="StreetAddress"
+			not-null="false"
+		 />
+		<property
+			length="2"
+			name="State"
+			not-null="false"
+		 />
+		<property
+			length="10"
+			name="ZipCode"
+			not-null="false"
+		 />
+		<property
+			length="32"
+			name="City"
+			not-null="false"
+		 />
+		<property
+			length="32"
+			name="AptNumber"
+			not-null="false"
+		 />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,261 @@
+<?xml version="1.0"?>
+<project name="techconf-ant-macros" default="test-macros" basedir="..">
+    
+	<!-- ===== -->
+	<!-- Paths -->
+	<!-- ===== -->
+    
+    <path id="java2html.class.path">
+        <fileset dir="lib/java2html">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+    
+    <path id="testng.class.path">
+        <fileset dir="lib/testng">
+            <include name="*.jar"/>
+        </fileset>
+    </path>   
+    
+    <path id="checkstyle.class.path">
+        <fileset dir="lib/checkstyle">
+            <include name="*.jar"/>
+        </fileset>	        
+    </path>  
+    
+    <path id="javancss.class.path">	 
+        <fileset dir="lib/javancss">
+            <include name="*.jar"/>
+        </fileset>	        
+    </path>     
+    
+    <path id="dbunit.class.path">	 
+        <fileset dir="lib/dbunit">
+            <include name="*.jar"/>
+        </fileset>	        
+    </path>   
+    
+    <path id="mysql-connector.class.path">	 
+        <fileset dir="lib/mysql-connector">
+            <include name="*.jar"/>
+        </fileset>	        
+    </path> 
+    
+    <path id="test.class.path">
+        <path refid="dbunit.class.path"/>
+        <path refid="mysql-connector.class.path"/>
+    </path>       
+    
+	<!-- ======== -->
+	<!-- TaskDefs -->
+	<!-- ======== -->    
+
+    <!-- Java2Html - java2html.de -->
+    <taskdef 
+        name="java2html"
+        classname="de.java2html.anttasks.Java2HtmlTask"
+        classpathref="java2html.class.path"
+    />
+    
+    <!-- TestNG - testng.org -->
+    <taskdef 
+        resource="testngtasks"
+        classpathref="testng.class.path"
+    />  
+    
+    <!-- Checkstyle - checkstyle.sourceforge.net -->		
+    <taskdef 
+        resource="checkstyletask.properties"
+        classpathref="checkstyle.class.path"
+    />	
+    
+    <!-- Javancss - kclee.com/clemens/java/javancss -->        
+	<taskdef 
+	    name="javancss"
+	    classname="javancss.JavancssAntTask"
+	    classpathref="javancss.class.path"
+	/>    
+	
+    <!-- DBUnit - dbunit.sourceforge.net -->
+	<taskdef 
+	    name="dbunit" 
+		classname="org.dbunit.ant.DbUnitTask"
+		classpathref="dbunit.class.path"
+	/>	 
+
+    <!-- =================================================================== -->
+    <!-- Prints a banner for the target being executed                       -->
+    <!-- =================================================================== -->    
+    <macrodef name="target-banner">
+        <attribute name="target"/>
+        <attribute name="message" default="" />
+        <sequential>
+            <echo>===================================================================</echo>
+            <echo>Executing Target @{target}</echo>
+            <echo>@{message}</echo>
+            <echo>===================================================================</echo>
+        </sequential>
+    </macrodef>
+
+    <!-- =================================================================== -->
+    <!-- Generates browseable source code in HTML format                     -->
+    <!-- =================================================================== -->    
+    <macrodef name="generate-html" description="Generates browseable HTML version of the source code." >
+        <attribute name="src"/>
+        <attribute name="dest"/>
+        <sequential>
+            <mkdir dir="@{dest}" />
+            <java2html
+                srcdir="@{src}"
+                destdir="@{dest}"
+                includes="**/*.java"
+                outputFormat="html"
+                tabs="4"
+                style="eclipse"
+                showLineNumbers="true"
+                showFileName="true"
+                showTableBorder="true"
+                includeDocumentHeader="true"
+                includeDocumentFooter="true"
+                addLineAnchors="true"
+                lineAnchorPrefix="fff"
+            />
+        </sequential>
+    </macrodef>
+    
+    <!-- =================================================================== -->
+    <!-- JavaDocs                                                            -->
+    <!-- =================================================================== -->    
+    <macrodef name="generate-javadoc" description="Generate JavaDocs.">
+        <attribute name="company" default="Integrallis Software, LLC."/>
+        <attribute name="source.path"/>
+        <attribute name="class.path"/>
+        <attribute name="year"/>
+        <attribute name="dest"/>        
+        <sequential>
+            <javadoc 
+                destdir="@{dest}"
+                author="true"
+                version="true"
+                use="true"
+                windowtitle="${ant.project.name}"
+                sourcepathref="@{source.path}"
+                classpathref="@{class.path}"
+                packagenames="*.*"
+                Verbose="false">
+                <doctitle><![CDATA[<h1>${ant.project.name}</h1>]]></doctitle>
+                <bottom><![CDATA[<i>Copyright &#169; @{year} @{company} All Rights Reserved.</i>]]></bottom>
+                <tag name="todo" scope="all" description="To do:" />
+            </javadoc>  
+        </sequential>
+    </macrodef> 
+    
+    <!-- =================================================================== -->
+    <!-- TestNG                                                              -->
+    <!-- =================================================================== -->
+    <macrodef name="test-run">
+        <attribute name="classpathref" />
+        <attribute name="output" />
+        <sequential>
+            <testng            
+                classpathref="@{classpathref}"
+                outputDir="@{output}"
+                target="1.5"                
+                >
+                <jvmarg value="-ea" />
+                <sysproperty key="ant.basedir" value="${basedir}"/>
+                <xmlfileset dir="${basedir}" includes="testng.xml"/>
+            </testng>            
+        </sequential>
+    </macrodef>
+    
+    <!-- =================================================================== -->
+    <!-- CheckStyle                                                          -->
+    <!-- =================================================================== -->    
+    <macrodef name="generate-checkstyle" description="Generates Code Convention Violations Report.">
+        <attribute name="src" />     
+        <attribute name="checkstyle-reports" />
+        <attribute name="checkstyle-checks-file" default="lib/checkstyle/sun_checks.xml"/>
+        <attribute name="checkstyle-xml-report-file" default="@{checkstyle-reports}/checkstyle-report.xml"/>
+        <attribute name="checkstyle-html-report-file" default="@{checkstyle-reports}/checkstyle-report.html"/>
+        <attribute name="checkstyle-stylesheet" default="lib/checkstyle/checkstyle-noframes-sorted.xsl"/>
+        <sequential>
+            <mkdir dir="@{checkstyle-reports}" />
+            <checkstyle 
+                config="@{checkstyle-checks-file}"
+                failureProperty="checkstyle.failure"
+                failOnViolation="false"
+                >
+                <formatter type="xml" tofile="@{checkstyle-xml-report-file}"/>
+                <fileset dir="@{src}" includes="**/*.java"/>          
+            </checkstyle>
+
+            <style 
+                in="@{checkstyle-xml-report-file}" 
+                out="@{checkstyle-html-report-file}" 
+                style="@{checkstyle-stylesheet}"
+            />            
+        </sequential>        
+    </macrodef>    
+    
+    <!-- =================================================================== -->
+    <!-- Metrics                                                             -->
+    <!-- =================================================================== -->   
+    <macrodef name="generate-metrics">
+        <attribute name="src" />
+        <attribute name="report-name" />
+        <attribute name="report-dir" default="." />
+        <attribute name="xml-report" default="@{report-dir}/@{report-name}.xml" />
+        <attribute name="html-report" default="@{report-dir}/@{report-name}.html" />
+        <attribute name="stylesheet" default="lib/javancss/xslt/javancss2html.xsl" />
+        <sequential>
+            <mkdir dir="@{report-dir}" />
+    		<javancss
+    			srcdir="@{src}"
+    			includes="**/*.java"
+        		generateReport="true"
+                outputfile="@{xml-report}"
+                format="xml"
+                functionMetrics="false"    		    
+        	    />
+
+        	<style
+        		in="@{xml-report}"
+        		out="@{html-report}"
+        		style="@{stylesheet}"    		
+        	    />            
+        </sequential>
+    </macrodef>
+    
+    <!-- =================================================================== -->
+    <!-- DB Unit Data Export                                                 -->
+    <!-- =================================================================== -->   
+    <macrodef name="export-data">  
+        <attribute name="driver" />
+        <attribute name="url" />
+        <attribute name="username" />
+        <attribute name="password" />    
+        <attribute name="target-dest" default="setup/data/dbunit" />
+        <attribute name="filename" default="dataExport" />            
+        <sequential>      
+		    <dbunit 
+			    driver="@{driver}"          
+			    url="@{url}"          
+			    userid="@{username}"          
+			    password="@{password}">    
+			    <export dest="@{target-dest}/@{filename}.xml" format="xml" />
+			    <classpath>
+				    <path refid="test.class.path" />
+			    </classpath>  
+		    </dbunit>    
+        </sequential>
+    </macrodef>       
+
+    <!-- =================================================================== -->
+    <!-- Test the macros                                                     -->
+    <!-- =================================================================== -->
+    <target name="test-macros">
+        <target-banner target="Compile"/>
+        <target-banner target="Testing" message="This is a sample message"/>
+    </target>
+</project>

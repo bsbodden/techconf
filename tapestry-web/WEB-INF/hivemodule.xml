@@ -1,0 +1,102 @@
+<?xml version="1.0"?>	
+<module id="app" version="1.0.0" package="com.integrallis.techconf">
+
+  <!-- =================================================================== -->
+  <!-- Friendly URLs setup                                                 -->
+  <!-- =================================================================== -->
+  <contribution configuration-id="tapestry.url.ServiceEncoders">
+    <direct-service-encoder id="direct" stateless-extension="direct" stateful-extension="sdirect"/>
+    <page-service-encoder id="page" extension="html" service="page"/>
+    <page-service-encoder id="external" extension="external" service="external"/>    
+    <asset-encoder id="asset" path="/assets"/>
+	<extension-encoder id="ext" extension="svc" after="*"/>
+  </contribution>
+
+  <!-- =================================================================== -->
+  <!-- Server-side State                                                   -->
+  <!-- =================================================================== -->
+  <contribution configuration-id="tapestry.state.ApplicationObjects">
+	<state-object name="logged-in-user-data" scope="session">
+	  <create-instance class="com.integrallis.techconf.web.tapestry.domain.LoggedInUser"/>
+	</state-object>  
+  	<state-object name="blog-entries" scope="session">
+	  <create-instance class="java.util.ArrayList"/>
+	</state-object>
+  </contribution>
+	
+  <!-- =================================================================== -->
+  <!-- Service Point for EJB3 Factory                                      -->
+  <!-- =================================================================== -->	
+  <service-point id="EJB3Factory" 
+                 interface="org.apache.hivemind.ServiceImplementationFactory">
+    <parameters-schema>
+	  <element name="construct">
+	    <attribute name="remote-interface" required="true" />
+	    <conversion class="com.integrallis.techconf.web.tapestry.hivemind.EJB3FactoryParameters">
+		  <map attribute="remote-interface" property="remoteInterface"/>
+	    </conversion>
+	  </element>
+	</parameters-schema>
+	    					
+	<invoke-factory model="singleton">
+ 	  <construct class="com.integrallis.techconf.web.tapestry.hivemind.EJB3Factory"/> 
+	</invoke-factory>
+  </service-point>
+	
+  <!-- =================================================================== -->
+  <!-- Service Point for JNDI Lookup Factory                               -->
+  <!-- =================================================================== -->	
+  <service-point id="JndiLookupFactory" 
+                 interface="org.apache.hivemind.ServiceImplementationFactory">
+    <parameters-schema>
+	  <element name="construct">	        
+        <attribute name="resource" required="true" />
+        <conversion class="com.integrallis.techconf.web.tapestry.hivemind.JNDILookupParameters">
+		  <map attribute="resource" property="resourceName"/>
+	    </conversion>
+	  </element>
+	</parameters-schema>
+	    					
+    <invoke-factory model="singleton">
+ 	  <construct class="com.integrallis.techconf.web.tapestry.hivemind.JNDILookupFactory"/> 
+	</invoke-factory>
+  </service-point>
+	
+  <!-- =================================================================== -->
+  <!-- TechConf EJB3 Services                                              -->
+  <!-- =================================================================== -->	
+    	
+  <service-point id="UserService" interface="service.UserService">    
+    <invoke-factory service-id="app.EJB3Factory">     
+  	  <construct remote-interface="service.UserService"/>
+	</invoke-factory>		
+  </service-point>
+	
+  <service-point id="LocationLookupService" interface="service.LocationLookupService">    
+	<invoke-factory service-id="app.EJB3Factory">     
+  	  <construct remote-interface="service.LocationLookupService"/>
+	</invoke-factory>		
+  </service-point>	
+	
+  <service-point id="ConferenceService" interface="service.ConferenceService">    
+    <invoke-factory service-id="app.EJB3Factory">     
+  	  <construct remote-interface="service.ConferenceService"/>
+	</invoke-factory>		
+  </service-point>
+
+  <service-point id="ScheduleService" interface="service.ScheduleService">    
+	<invoke-factory service-id="app.EJB3Factory">     
+  	  <construct remote-interface="service.ScheduleService"/>
+	</invoke-factory>		
+  </service-point>
+			
+  <!-- =================================================================== -->
+  <!-- DynaDTO Builder Factory                                             -->
+  <!-- =================================================================== -->			
+  <service-point id="DynaBuilderFactory" interface="org.dynadto.BuilderFactory">    
+	<invoke-factory service-id="app.JndiLookupFactory">
+	  <construct resource="java:/dynadto/BuilderFactory" />
+    </invoke-factory>	
+  </service-point>
+	
+</module>

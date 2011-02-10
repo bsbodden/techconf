@@ -1,0 +1,142 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.integrallis.techconf.domain">
+	<class name="User" table="user" discriminator-value="USR">
+		<id
+			column="PK_ID"
+			name="Id"
+			type="integer"
+		>
+			<generator class="identity" />
+		</id>
+		
+		<discriminator column="USERTYPE" length="3"/>
+		
+		<!-- User fields -->
+		<property
+			column="HOMEPHONE"
+			length="12"
+			name="HomePhone"
+			not-null="false"
+			type="string"
+		/>
+		<property
+			column="PASSWORD"
+			length="64"
+			name="Password"
+			not-null="true"
+			type="string"
+		/>
+		<property
+			column="FAX"
+			length="12"
+			name="Fax"
+			not-null="false"
+			type="string"
+		/>
+		<property
+			column="WORKPHONE"
+			length="12"
+			name="WorkPhone"
+			not-null="false"
+			type="string"
+		/>
+		<property
+			column="LASTNAME"
+			length="32"
+			name="LastName"
+			not-null="true"
+			type="string"
+		/>
+		<property
+			column="FIRSTNAME"
+			length="32"
+			name="FirstName"
+			not-null="true"
+			type="string"
+		/>
+		<property
+			column="EMAIL"
+			length="64"
+			name="Email"
+			not-null="true"
+			type="string"
+		/>	 
+
+		<many-to-one
+			class="Address"
+			name="Address"
+			not-null="true"
+			cascade="all"
+			lazy="false"
+		>
+			<column name="FK_ADDRESS_ID" />
+		</many-to-one>
+		<set inverse="true" name="Roles">
+			<key column="FK_USER_ID" />
+			<one-to-many class="UserRole" />
+		</set>
+		<set inverse="true" name="Reminders">
+			<key column="FK_USER_ID" />
+			<one-to-many class="Reminder" />
+		</set>
+		<subclass name="Attendee" discriminator-value="ATD"> 
+		    <property
+			    column="ALUMNUS"
+			    name="Alumnus"
+			    type="boolean"
+		     />		
+		     <many-to-one
+			     class="AttendeeGroup"
+			     name="Group"
+		     >
+			     <column name="FK_ATTENDEEGROUP_ID" />
+		     </many-to-one>			     
+             <set name="Conferences" table="AttendeeConference" lazy="true">
+                <key column="FK_ATTENDEE_ID"/>
+                <many-to-many column="FK_CONFERENCE_ID" class="Conference"/>
+             </set>			     	     
+		</subclass>
+		
+		<subclass name="Presenter" discriminator-value="PST"> 
+		    <property
+			    column="BIO"
+			    length="255"
+			    name="Bio"
+			    type="string"
+		    />
+		    <property
+			    column="COMPANY"
+			    length="64"
+			    name="Company"
+			    type="string"
+		    />
+		    <property
+			    column="COMPANYURL"
+			    length="64"
+			    name="CompanyURL"
+			    type="string"
+		    />	
+		    <many-to-one
+			    class="BlogLink"
+			    name="BlogLink"
+			    not-null="true"
+			    lazy="false"
+			    cascade="all"
+		    >
+			    <column name="FK_BLOGLINK_ID" />
+		    </many-to-one>		    	    
+		    <set inverse="true" name="Abstracts">
+			    <key column="FK_PRESENTER_ID" />
+			    <one-to-many class="Abstract" />
+		    </set>	
+		    <set inverse="true" name="Books">
+			    <key column="FK_USER_ID" />
+			    <one-to-many class="Book" />
+		    </set>		    	 	
+		</subclass>		
+	</class>
+</hibernate-mapping>

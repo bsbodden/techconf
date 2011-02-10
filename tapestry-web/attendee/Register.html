@@ -1,0 +1,139 @@
+<html jwcid="@ConferenceBorder" title="Register">
+<head>
+  <span jwcid="$remove$">
+    <link href="../css/techconf.css" rel="stylesheet" type="text/css" />
+  </span>
+</head>
+<span jwcid="@ErrorDisplay" delegate="bean:delegate"/>   
+<form jwcid="@tacos:AjaxForm" 
+      delegate="bean:delegate" 
+      listener="ognl:listeners.add"> 
+  <style>
+    div.auto_complete {
+      width: 350px;
+      background: #fff;
+    }
+    div.auto_complete ul {
+      border:1px solid #888;
+      margin:0;
+      padding:0;
+      width:100%;
+      list-style-type:none;
+    }
+    div.auto_complete ul li {
+      margin:0;
+      padding:3px;
+    }
+    div.auto_complete ul li.selected { 
+      background-color: #ffb; 
+    }
+    div.auto_complete ul strong.highlight { 
+      color: #800; 
+      margin:0;
+      padding:0;
+    }
+    ul.locations  {
+      list-style-type: none;
+      margin:0px;
+      padding:0px;
+    }
+    ul.locations li.selected { background-color: #ffb; }
+    li.location {
+      list-style-type: none;
+      display:block;
+      margin:0;
+      padding:2px;
+      height:32px;
+    }  
+    li.location div.zip {
+      font-weight:bold;
+      font-size:12px;
+      line-height:1.2em;
+    }
+    li.location div.description {
+      font-size:10px;
+      color:#888;
+    }            
+  </style>
+              
+  <table width="100%" border="0" summary="register">
+    <tr>
+      <td><span jwcid="firstNameLabel"><label>First Name</label></span></td>
+      <td><span jwcid="firstName"><input type="text" alt="First Name" /></span></td>
+	</tr>
+    <tr>
+      <td><span jwcid="lastNameLabel"><label>Last Name</label></span></td>
+      <td><span jwcid="lastName"><input type="text" alt="Last Name" /></span></td>
+	</tr>
+    <tr>
+      <td><span jwcid="emailLabel"><label>Email</label></span></td>
+      <td><span jwcid="email"><input type="text" alt="Email" /></span></td>
+	</tr>
+    <tr>
+      <td><span jwcid="homePhoneLabel"><label>Home Phone</label></span></td>
+      <td><span jwcid="homePhone"><input type="text" alt="Home Phone" /></span></td>
+	</tr>
+    <tr>
+      <td><span jwcid="workPhoneLabel"><label>Work Phone</label></span></td>
+      <td><span jwcid="workPhone"><input type="text" alt="Work Phone" /></span></td>
+	</tr>
+    <tr>
+      <td><span jwcid="faxLabel"><label>Fax</label></span></td>
+      <td><span jwcid="fax"><input type="text" alt="Fax" /></span></td>
+	</tr>	
+    <tr>
+      <td><span jwcid="passwordLabel"><label>Password</label></span></td>
+      <td><span jwcid="password"><input type="password" alt="Password" /></span></td>
+	</tr>
+    <!--
+    <div>
+      <span><label for="pwdinp_passwordConfirm_id0">Confirm Password</label></span>
+      <span><input type="password" id="pwdinp_passwordConfirm_id0" name="passwordConfirm" alt="Confirm Password" /></span>
+    </div>
+    <div>
+      <span><label for="sellst_attendeeGroupId_id0">Attendee Group</label></span>
+      <span>
+	    <select id="sellst_attendeeGroupId_id0" name="attendeeGroupId" title="Attendee Group" size="1">
+          <option value="1">IBM Employees</option>
+          <option value="2">Integrallis Employees</option>
+        </select>
+	  </span>
+    </div>
+    -->
+    <tr>
+      <td><span jwcid="streetAddressLabel"><label>StreetAddress</label></span></td>
+      <td><span jwcid="streetAddress"><input type="text" alt="StreetAddress" /></span></td>
+	</tr>
+    <tr>
+      <td><span jwcid="aptNumberLabel"><label>AptNumber</label></span></td>
+      <td><span jwcid="aptNumber"><input type="text" alt="AptNumber" /></span></td>
+	</tr>
+    <tr>
+      <td><span jwcid="cityLabel"><label>City</label></span></td>
+      <td><span jwcid="city"><input type="text" alt="City" /></span></td>
+	</tr>
+    <tr>
+      <td><span jwcid="stateLabel"><label>State</label></span></td>
+      <td><span jwcid="state"><input type="text" alt="State" /></span></td>
+	</tr>
+    <tr>
+      <td><span jwcid="zipCodeLabel"><label>ZipCode</label></span></td>
+      <td><span class="auto_complete" jwcid="zipCode"/></td>
+	</tr>
+    <tr>
+      <td><img jwcid="@ImageSubmit" image="asset:btn_submit" alt="Submit" src="../images/btn-submit.gif" /></td>
+	</tr>
+  </table>	
+</form>
+
+<!--
+  <div jwcid="@Any" id="debugbox">
+    <span jwcid="@If" condition="ognl:user.address.city">
+        <label>City:</label>
+        <span jwcid="@Insert" value="ognl:user.address.city" />
+    </span>
+  </div>
+  -->
+  
+</html>
+

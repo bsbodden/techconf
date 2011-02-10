@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.integrallis.techconf.domain">
+	<class name="Question" table="question">
+		<id
+			column="PK_ID"
+			name="Id"
+			type="integer"
+		>
+			<generator class="identity" />
+		</id>
+		<property
+			column="TEXT"
+			name="Text"
+			not-null="true"
+			type="string"
+		 />
+
+		<many-to-one
+			class="QuestionType"
+			name="QuestionType"
+			not-null="true"
+		>
+			<column name="FK_QUESTIONTYPE_ID" />
+		</many-to-one>
+		
+		<set name="QuestionChoices" 
+		     lazy="false" 
+		     table="questionquestionchoice">
+		     <key column="FK_QUESTION_ID" />
+		     <many-to-many class="QuestionChoice" column="FK_QUESTIONCHOICE_ID" />			
+		</set>
+	</class>
+</hibernate-mapping>

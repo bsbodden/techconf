@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.integrallis.techconf.domain">
+	<class name="Session" table="session">
+		<id
+			column="PK_ID"
+			name="Id"
+			type="integer"
+		>
+			<generator class="identity" />
+		</id>
+		<property
+			column="DATETIMEBEGIN"
+			length="19"
+			name="DateTimeBegin"
+			not-null="false"
+			type="timestamp"
+		 />
+		<property
+			column="DATETIMEEND"
+			length="19"
+			name="DateTimeEnd"
+			not-null="false"
+			type="timestamp"
+		 />
+		<property 
+		    column="FK_CONFERENCE_ID"
+		    name="ConferenceId"
+		    type="integer"
+		/>
+		<many-to-one
+			class="Presentation"
+			name="Presentation"
+			not-null="true"
+			lazy="false"
+		>
+			<column name="FK_PRESENTATION_ID" />
+		</many-to-one>
+		<many-to-one
+			class="Room"
+			name="Room"
+			not-null="true"
+		>
+			<column name="FK_ROOM_ID" />
+		</many-to-one>	
+	</class>
+</hibernate-mapping>

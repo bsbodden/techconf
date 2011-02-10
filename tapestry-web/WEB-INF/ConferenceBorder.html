@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      jwcid="@Shell" title="ognl:title" 
+	  stylesheet="asset:stylesheet"
+>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	<!-- Begin Tacos requirements -->
+	<script type="text/javascript" src="js/prototype.js"></script>
+	<script type="text/javascript" src="js/rico.js"></script>
+	<script type="text/javascript" src="js/scriptaculous.js"></script>
+
+    <script type="text/javascript">
+      djConfig = { isDebug: false,
+                   baseRelativePath:
+                   '<span jwcid="@Insert" value="ognl:baseURL + '/js/dojo/'" />',
+                   preventBackButtonFix: false
+                 };
+    </script>
+    <script jwcid="@Any" type="text/javascript" src="ognl:baseURL + '/js/dojo/dojo.js'"></script>	   
+	<!-- End Tacos requirements -->
+    <script language="JavaScript" type="text/javascript">
+      //--------------- LOCALIZEABLE GLOBALS ---------------
+      var d=new Date();
+      var monthname=new Array("January","February","March","April","May","June","July","August","September","October","November","December");
+      //Ensure correct for language. English is "January 1, 2004"
+      var TODAY = monthname[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
+      //---------------   END LOCALIZEABLE   ---------------
+    </script>
+    <span jwcid="$remove$">    
+        <link rel="stylesheet" type="text/css" href="../css/techconf.css"/>
+    </span>
+</head>
+<body jwcid="@Body" bgcolor="#C0DFFD">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr bgcolor="#3366CC">
+      <td colspan="3" rowspan="2">&nbsp;</td>
+      <td height="63" colspan="3" id="logo" valign="bottom" align="center" nowrap="nowrap">
+  	    <span jwcid="conferenceTitle">Conference Title</span>
+      </td>
+      <td width="262">&nbsp;</td>
+    </tr>
+
+    <tr bgcolor="#3366CC">
+      <td height="64" colspan="3" align="center" valign="top" bgcolor="#3366CC" id="tagline">
+	    <span jwcid="startDate">10/10/2005</span> - <span jwcid="endDate">10/15/2005</span>
+	    <br/>
+	    <span jwcid="venueName">Brian's House</span>
+	    <br/>
+	    <span class="smallText">
+	      <span jwcid="venueAddressLine1">204 Bluestone Court</span> &#8226; <span jwcid="venueAddressLine2">Westerville, OH 43081</span>
+        </span>	
+	  </td>
+	  <td width="262">&nbsp;</td>
+    </tr>
+
+    <tr>
+      <td colspan="7" bgcolor="#003366">
+	    <img jwcid="@Image" image="asset:spacer" width="1" height="1" border="0" alt="" />
+	  </td>
+    </tr>
+
+    <tr bgcolor="#CCFF99">
+  	  <td colspan="7" id="dateformat" height="25">&nbsp;&nbsp;
+	    <script language="JavaScript" type="text/javascript">document.write(TODAY);</script>
+	  </td>
+    </tr>
+
+    <tr>
+      <td colspan="7" bgcolor="#003366">
+	    <img jwcid="@Image" image="asset:spacer" width="1" height="1" border="0" alt="" />
+	  </td>
+    </tr>
+
+    <tr>
+      <td width="165" valign="top" bgcolor="#E6F3FF">
+	    <table border="0" cellspacing="0" cellpadding="0" width="165" id="navigation">
+          <tr>
+            <td width="165">
+		      <br/><br/>
+		    </td>
+          </tr>
+          <tr>
+            <td width="165"><a href="#" jwcid="@PageLink" page="conference/Summary" class="navText">home</a></td>
+          </tr>
+          <tr>
+            <td width="165"><a href="#" jwcid="@PageLink" page="conference/Keynote" class="navText">keynotes</a></td>
+          </tr>
+          <tr>
+            <td width="165"><a href="#" jwcid="@PageLink" page="conference/Sessions" class="navText">sessions</a></td>
+          </tr>
+          <tr>
+            <td width="165"><a href="#" jwcid="@PageLink" page="conference/Speakers" class="navText">speakers</a></td>
+          </tr>
+          <tr>
+            <td width="165"><a href="#" jwcid="@PageLink" page="conference/Blogs" class="navText">blogs</a></td>
+          </tr>
+          <tr>
+            <td width="165"><a href="#" jwcid="@PageLink" page="conference/Books" class="navText">book store</a></td>
+          </tr>		
+		  <span jwcid="displayLoggedInLinks">
+            <tr>
+              <td width="165">
+			    <a href="#" jwcid="@PageLink" page="attendee/ConfSessions" class="navText">my schedule</a>
+			  </td>
+            </tr>	
+		  </span>	
+        </table>
+ 	    <br/>
+  	    <br/>
+  	    <br/>
+  	    <br/> 	
+	  </td>
+
+      <td width="50">
+	    <img jwcid="@Image" image="asset:spacer" width="50" height="1" border="0" alt="" />
+	  </td>
+      <td colspan="2" valign="top">
+	    <img jwcid="@Image" image="asset:spacer" width="305" height="1" border="0" alt="" />
+	    <br/>
+	    <br/>
+	    <br/>
+	    <table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td><span class="bodyText" jwcid="@RenderBody">Page specific content goes here.</span></td>
+		  </tr>
+        </table>
+	    <br/>	  
+	  </td>
+
+      <td width="50">
+	    <img jwcid="@Image" image="asset:spacer" width="50" height="1" border="0" alt="" />
+	  </td>
+      <td width="149" valign="top">
+        <span jwcid="ifLoggedIn">
+          Welcome back!<br/>
+		  <span jwcid="displayName" class="mediumText">Doe, John</span>
+            <form jwcid="@Form" listener="ognl:listeners.logout"> 
+              <table width="100%" border="0" summary="logout">
+                <tr>
+                  <td>
+			        <img jwcid="@ImageSubmit" image="asset:btn_logout" alt="Logout" src="../images/btn-logout.gif"/>
+			      </td>
+			    </tr>
+              </table>		        
+		    </form> 					
+		  </span>
+          <span jwcid="elseNotLoggedIn">
+		    <form jwcid="@Form" listener="ognl:listeners.login"> 
+              <table width="100%" border="0" summary="login">
+                <tr>
+                  <td><span jwcid="loginLabel">Login</span></td>
+                </tr>
+                <tr>
+                  <td><input type="text" jwcid="login"/></td>
+                </tr>
+                <tr>
+                  <td><span jwcid="passwdLabel">Password</span></td>
+                </tr>
+                <tr>
+                  <td><input type="text" jwcid="passwd"/></td>
+                </tr>
+                <tr>
+                  <td>
+			        <img jwcid="@ImageSubmit" image="asset:btn_login" alt="Login" src="../images/btn-login.gif"/>
+			      </td>
+			    </tr>
+              </table>		        
+		    </form> 
+		 
+            <table width="100%" border="0" summary="register">
+              <tr>
+                <td><span class="subHeader">Come join us!</span></td>
+              </tr>
+              <tr>
+                <td>
+			      <a href="../attendee/Register.html" jwcid="@PageLink" page="attendee/Register">
+			        <img jwcid="@Image" image="asset:btn_register" border="0" alt="Register" src="../images/btn-register.gif"/>
+			      </a>
+			    </td>
+              </tr>
+		    </table>			   
+          </span>	
+		</td>
+	    <td width="262">&nbsp;</td>
+      </tr>
+      <tr>
+        <td width="165">&nbsp;</td>
+        <td width="50">&nbsp;</td>
+        <td width="5">&nbsp;</td>
+        <td width="300">&nbsp;</td>
+        <td width="50">&nbsp;</td>
+        <td width="149">&nbsp;</td>
+	    <td width="262">&nbsp;</td>
+      </tr>
+    </table>
+  </body>
+</html>

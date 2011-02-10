@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.integrallis.techconf.domain">
+	<class name="PricingRule" table="pricingrule">
+		<id
+			column="PK_ID"
+			name="Id"
+			type="integer"
+		>
+			<generator class="identity" />
+		</id>
+		<property
+			column="NAME"
+			length="16"
+			name="Name"
+			not-null="true"
+			type="string"
+		/>		
+		<property
+			column="ACTIVE"
+			name="Active"
+			type="boolean"
+		/>			  		
+		<property
+			column="PRIORITY"
+			length="11"
+			name="Priority"
+			not-null="false"
+			type="integer"
+		/>
+		<property
+			column="FK_CONFERENCE_ID"
+			length="11"
+			name="ConferenceId"
+			not-null="true"
+			type="integer"
+		/>
+		<joined-subclass name="GroupPricingRule" table="grouppricingrule">
+		    <key column="PK_ID"/>
+		    <property
+			    column="MINIMUMATTENDEES"
+			    length="11"
+			    name="MinimumAttendees"
+			    not-null="false"
+		 	    type="integer"
+		    />
+		    <property
+			    column="DISCOUNTRATE"
+			    length="22"
+			    name="DiscountRate"
+			    not-null="false"
+			    type="java.lang.Double"
+		    />
+		    <property
+			    column="MAXIMUMATTENDEES"
+			    length="11"
+			    name="MaximumAttendees"
+			    not-null="false"
+			    type="integer"
+		    />		     
+		</joined-subclass>
+		<joined-subclass name="RegistrationDatePricingRule" table="registrationdatepricingrule">
+		    <key column="PK_ID"/>
+		    <property
+		        column="STARTDATE"
+		        length="19"
+			    name="StartDate"
+			    not-null="true"
+			    type="timestamp"
+		    />
+		    <property
+			    column="ENDDATE"
+			    length="19"
+			    name="EndDate"
+			    not-null="true"
+			    type="timestamp"
+		    />		 
+		    <property
+			    column="PRICE"
+			    length="22"
+			    name="Price"
+			    not-null="true"
+			    type="java.lang.Double"
+		    />		 		     
+        </joined-subclass>		 
+	</class>
+</hibernate-mapping>

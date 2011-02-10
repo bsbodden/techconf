@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!-- DW6 -->
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <script language="JavaScript" type="text/javascript">
+      //--------------- LOCALIZEABLE GLOBALS ---------------
+      var d=new Date();
+      var monthname=new Array("January","February","March","April","May","June","July","August","September","October","November","December");
+      //Ensure correct for language. English is "January 1, 2004"
+      var TODAY = monthname[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear();
+      //---------------   END LOCALIZEABLE   ---------------
+    </script>
+    <link href="css/techconf.css" rel="stylesheet" type="text/css" />
+</head>
+<body jwcid="@Body" bgcolor="#C0DFFD">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr bgcolor="#3366CC">
+    <td colspan="3" rowspan="2">&nbsp;</td>
+    <td height="63" colspan="3" id="logo" valign="bottom" align="center" nowrap="nowrap">
+	TechConf Conference System</td>
+  </tr>
+
+  <tr bgcolor="#3366CC">
+    <td height="64" colspan="3" align="center" valign="top" bgcolor="#3366CC" id="tagline">techconf.dev.java.net</td>
+  </tr>
+
+  <tr>
+    <td colspan="6" bgcolor="#003366">
+	<img jwcid="@Image" image="asset:spacer" width="1" height="1" border="0" alt="" />	</td>
+  </tr>
+
+  <tr bgcolor="#CCFF99">
+  	<td colspan="6" id="dateformat" height="25">&nbsp;&nbsp;
+	  <script language="JavaScript" type="text/javascript">document.write(TODAY);</script>	</td>
+  </tr>
+  <tr>
+    <td colspan="6" bgcolor="#003366">
+	<img jwcid="@Image" image="asset:spacer" width="1" height="1" border="0" alt="" />	</td>
+  </tr>
+
+ <tr>
+    <td width="165" valign="top" nowrap="nowrap" bgcolor="#E6F3FF">
+	<table border="0" cellspacing="0" cellpadding="0" width="165" id="navigation">
+        <tr>
+          <td width="165">
+		  <span class="mediumText"> Conferences </span><br />
+		  <br />		  </td>
+        </tr>
+		
+		<tr jwcid="@For" element="tr" source="ognl:conferences" value="ognl:conference">
+		  <td width="165">
+		  <span jwcid="@ExternalLink" page="conference/Summary" parameters="ognl:conference.conferenceId" class="navText">
+		    <span jwcid="@Insert" value="ognl:conference.conferenceTitle" />
+		  </span>
+		</tr>
+		<span jwcid="$remove$">
+        <tr>
+          <td width="165">
+		    <a href="#" class="navText">A Conference</a>		  
+		  </td>
+        </tr>
+		</span>
+	
+      </table>
+ 	 <br />
+  	<br />
+  	<br />
+  	<br />	</td>
+    <td width="50">&nbsp;</td>
+    <td colspan="2" valign="top">
+	  <p><img jwcid="@Image" image="asset:spacer" width="305" height="1" border="0" alt="" />
+	    <br />
+	  The TechConf Application is a sample application using several of the leading open source technologies available today, including:</p>
+	  <ul>
+	    <li class="mediumText">Java 5</li>
+	    <li class="mediumText">JBoss 4</li>
+	    <li class="mediumText">Tapestry 4</li>
+	    <li class="mediumText">Hibernate 3</li>
+	    <li class="mediumText">EJB 3</li>
+	    <li class="mediumText">DynaDTO</li>
+	    <li class="mediumText">Informa</li>
+	    <li class="mediumText">AspectJ</li>
+        <li class="mediumText">Jakarta Commons</li>
+	    <li class="mediumText">DbUnit</li>
+	    <li class="mediumText">TestNG</li>
+	    <li class="mediumText">XOM</li>
+	    <li class="mediumText">MySQL</li>
+      </ul>
+	  To get started select one of the Conferences available from the menu on the left. </td>
+    <td width="50">&nbsp;</td>
+        <td width="149" valign="top">
+          <div align="left">
+            <table width="100%" border="0" bgcolor="#FFFFFF">
+              <tr>
+                <td align="center"><img src="images/java.jpg" alt="Java" width="49" height="79" /></td>
+              </tr>
+              <tr>
+                <td align="center"><img src="images/jboss.gif" alt="JBoss" width="92" height="58" /></td>
+              </tr>
+              <tr>
+                <td align="center"><img src="images/PoweredByTapestry.gif" alt="Tapestry" width="79" height="33" /></td>
+              </tr>
+              <tr>
+                <td align="center"><img src="images/hibernate.gif" alt="Hibernate" width="105" height="33" /></td>
+              </tr>
+              <tr>
+                <td align="center"><img src="images/dynadto.jpg" alt="DynaDTO" width="135" height="34" /></td>
+              </tr>
+              <tr>
+                <td align="center"><img src="images/informa.png" alt="Informa" width="121" height="32" /></td>
+              </tr>
+              <tr>
+                <td align="center"><img src="images/aspectj.gif" alt="AspectJ" width="81" height="28" /></td>
+              </tr>
+              <tr>
+                <td align="center"><img src="images/commons.png" alt="Jakarta Commons" width="101" height="33" /></td>
+              </tr>
+              <tr>
+                <td align="center"><img src="images/dbunit.jpg" alt="DbUnit" width="75" height="38" /></td>
+              </tr>
+              <tr>
+                <td align="center"><img src="images/mysql.gif" alt="MySQL" width="75" height="39" /></td>
+              </tr>
+            </table>
+        </div></td>
+  </tr>
+  <tr>
+    <td width="165">&nbsp;</td>
+    <td width="50">&nbsp;</td>
+    <td width="5">&nbsp;</td>
+    <td width="300">&nbsp;</td>
+    <td width="50">&nbsp;</td>
+    <td width="149">&nbsp;</td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,22 @@
+
+<html jwcid="@ConferenceBorder" title="Speakers">
+    
+    <table border="0">
+        
+	    <tr jwcid="presenterList">
+	        <td>
+				<img jwcid="speakerPicture" border="0" />
+	       	</td>
+	        
+	        <td>
+				<a href="../speakers/PresenterBio.html" jwcid="@ExternalLink" page="speakers/PresenterBio" parameters="ognl:presenter.presenterId" border="0">            
+					<span jwcid="@Insert" value="ognl:presenter.name"/><br />
+		        </a>
+	   			<span jwcid="@Insert" value="ognl:processLink(presenter.company)"/><br />
+				<span jwcid="@Insert" value="ognl:processLink(presenter.pictureURL)"/><br />
+	        </td>
+	    </tr>
+	    
+    </table>
+        
+</html>    

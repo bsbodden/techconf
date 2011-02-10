@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.integrallis.techconf.domain">
+	<class name="Track" table="track" lazy="false" mutable="false">
+	    <cache usage="read-only"/>
+		<id
+			column="PK_ID"
+			name="Id"
+			type="integer"
+		>
+			<generator class="identity" />
+		</id>
+		<property
+			column="TITLE"
+			length="32"
+			name="Title"
+			not-null="true"
+			type="string"
+		 />
+		<property
+			column="SUBTITLE"
+			length="32"
+			name="Subtitle"
+			not-null="false"
+			type="string"
+		 />
+		<property
+			column="DESCRIPTION"
+			name="Description"
+			not-null="false"
+			type="string"
+		 />
+
+		<many-to-one
+			class="Conference"
+			name="Conference"
+			not-null="true"
+		>
+			<column name="FK_CONFERENCE_ID" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

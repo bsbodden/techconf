@@ -1,0 +1,58 @@
+.progressBar {
+    margin: 5px; 
+    padding: 8px 8px 8px 8px; 
+    padding-bottom: 1px; 
+    float:left; clear:both; 
+    min-width: 300px;
+    background: #ffffff; 
+    border: 1px solid #aaa;
+    -moz-border-radius: 8px;
+}
+
+.barStatusText {
+    display: block; 
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    margin-bottom:2px; 
+    font-size: 14px;
+    font-weight:bold; 
+    font-family: arial,verdana,helvetica; 
+    clear:both;
+    text-align:center;
+}
+
+.barForeground {
+    display: block; 
+    float:left;
+    clear:none; 
+    background:#FFCC33;
+    border: 1px solid #424242; 
+    border-right: none;
+    font-size:10px;
+    font-style:italic;
+    background: url(../img/progress-bar.gif) repeat-x;
+    height: 18px;
+}
+
+.currentProgressValue {
+    display: none;
+    text-align: center;
+}
+
+.barBackground {
+    display: block; 
+    float:left; 
+    clear:right;
+    height: 18px;
+    background:#aaa;
+    border: 1px solid #424242;
+    border-left: none; 
+    font-size:10px;
+    color:#efefef;
+    font-style:italic;
+}
+
+.totalProgressValue {
+    display: none; 
+    text-align: center;
+}

@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<!DOCTYPE page-specification PUBLIC
+  "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
+  "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+
+<page-specification>
+    
+    <!-- General Info -->    
+    <component id="speakerName" type="Insert">
+		<binding name="value" value="literal:Joe Nus"/>    	
+    </component>
+
+    <component id="speakerCompany" type="Insert">
+		<binding name="value" value="literal:my Company"/>    	
+    </component>
+
+	<component id="speakerLink" type="Insert">
+		<binding name="value" value="literal:http://www.joe.com"/>    	
+    </component>
+        
+	<component id="speakerBio" type="Insert">
+		<binding name="value" value="literal:My bio is sooo good"/>    	
+    </component>
+    
+    <component id="speakerImage" type="Any">	
+    	<binding name="src" value="literal:../speakerImage/3.jpg"/>
+   	</component>
+        
+    <!-- Presentations the User gives -->   
+    <property name="presentation"/> 
+    <component id="sessions" type="Foreach">
+        <binding name="value" value="ognl:presentation"/>
+		<binding name="source" value="ognl:presentationList"/>    	
+    </component>
+    
+    <component id="sessionName" type="Insert">
+		<binding name="value" value="ognl:presentation.title"/>    	
+    </component>
+    
+    <component id="sessionDesc" type="Insert">
+		<binding name="value" value="ognl:presentation.description"/>    	
+    </component>
+                    
+    <!-- Blogs-->
+    <property name="blog"/>
+    <component id="blogs" type="Foreach">
+        <binding name="value" value="ognl:blog"/>
+		<binding name="source" value="ognl:presenterBlogs"/>
+	</component>
+    <component id="blogDate" type="Insert">
+		<binding name="value" value="ognl:blog.publishedDate"/>    	
+    </component>
+    <component id="blogTitle" type="Insert">
+		<binding name="value" value="ognl:blog.title"/>    	
+    </component>
+    <component id="blogDescription" type="Insert">
+		<binding name="value" value="ognl:blog.description"/>    	
+    </component>        
+    <component id="blogLink" type="Insert">
+		<binding name="value" value="ognl:blog.link"/>    	
+    </component>            		
+</page-specification>

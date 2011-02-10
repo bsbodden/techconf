@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!-- =================================================================== -->
+<!-- Application context definition for "TechConf" DispatcherServlet.    -->
+<!-- =================================================================== -->
+<beans>
+    <!-- =================================================================== -->
+    <!-- Controller Definitions                                              -->
+    <!-- =================================================================== -->
+    <bean id="listConferencesController"
+        class="com.integrallis.techconf.spring.web.ListConferencesController">
+        <property name="conferenceService"><ref bean="conferenceService"/></property>
+    </bean>
+
+    <bean id="displayConferenceController"
+        class="com.integrallis.techconf.spring.web.DisplayConferenceController">
+        <property name="conferenceService"><ref bean="conferenceService"/></property>
+    </bean>
+    
+    <bean id="listKeynotesController"
+        class="com.integrallis.techconf.spring.web.ListKeynotesController">
+        <property name="conferenceService"><ref bean="conferenceService"/></property>
+    </bean>     
+    
+    <bean id="listSpeakersController"
+        class="com.integrallis.techconf.spring.web.ListSpeakersController">
+        <property name="conferenceService"><ref bean="conferenceService"/></property>
+    </bean> 
+    
+    <bean id="displaySpeakerController"
+        class="com.integrallis.techconf.spring.web.DisplaySpeakerController">
+        <property name="conferenceService"><ref bean="conferenceService"/></property>
+    </bean>      
+    
+    <bean id="listSessionsController"
+        class="com.integrallis.techconf.spring.web.ListSessionsController">
+        <property name="conferenceService"><ref bean="conferenceService"/></property>
+    </bean>   
+    
+    <bean id="displaySessionController"
+        class="com.integrallis.techconf.spring.web.DisplaySessionController">
+        <property name="conferenceService"><ref bean="conferenceService"/></property>
+    </bean>        
+    
+    <bean id="listBlogsController"
+        class="com.integrallis.techconf.spring.web.ListBlogsController">
+        <property name="conferenceService"><ref bean="conferenceService"/></property>
+    </bean>     
+    
+    <!-- =================================================================== -->
+    <!-- URL Mappings                                                        -->
+    <!-- =================================================================== -->    
+    
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="/displayConference.htm">displayConferenceController</prop>
+                <prop key="/listConferences.htm">listConferencesController</prop>
+                <prop key="/listKeynotes.htm">listKeynotesController</prop>
+                <prop key="/listSpeakers.htm">listSpeakersController</prop>
+                <prop key="/displaySpeaker.htm">displaySpeakerController</prop>
+                <prop key="/listSessions.htm">listSessionsController</prop>
+                <prop key="/displaySession.htm">displaySessionController</prop>
+                <prop key="/listBlogs.htm">listBlogsController</prop>
+            </props>
+        </property>
+        <property name="interceptors">
+            <list>
+                <bean class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
+                    <property name="sessionFactory" ref="sessionFactory"/>
+                    <property name="flushModeName" value="FLUSH_AUTO" />
+                </bean>
+            </list>
+        </property>
+    </bean> 
+    
+    <!-- =================================================================== -->
+    <!-- View Resolution using Tiles                                         -->
+    <!-- =================================================================== -->      
+    
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles.TilesConfigurer">
+        <property name="definitions">
+            <list>
+                <value>/WEB-INF/tiles-defs.xml</value>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="viewResolver" 
+        class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass">
+            <value>org.springframework.web.servlet.view.tiles.TilesView</value>
+        </property>
+    </bean>       
+
+</beans>

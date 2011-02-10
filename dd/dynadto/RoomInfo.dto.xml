@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dtos>
+    <!-- *********************************************************** -->
+    <!-- RoomInfo                                                  -->
+    <!-- *********************************************************** -->
+    <dto target="com.integrallis.techconf.dto.RoomInfo" useProxy="yes">  
+        <sources>
+		    <!-- *********************************************************** -->
+            <!-- Room                                                        -->
+            <!-- *********************************************************** -->
+	        <source type="com.integrallis.techconf.domain.Room">
+	            <mapping property="id" />
+	            <mapping from="name" to="roomName" />
+		    </source>
+        </sources>       
+		<!-- *********************************************************** -->
+		<!-- Comparator                                                  -->
+		<!-- *********************************************************** -->
+        <comparator useSuper="false" useReflection="false">
+            <compare property="roomName" />
+        </comparator>  
+	</dto>
+</dtos>

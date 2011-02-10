@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<dtos>
+    <!-- *********************************************************** -->
+    <!-- ReminderInfo                                                -->
+    <!-- *********************************************************** -->
+    <dto target="com.integrallis.techconf.dto.ReminderInfo" useProxy="yes">
+        <sources>
+		    <!-- *********************************************************** -->
+            <!-- Reminder                                                    -->
+            <!-- *********************************************************** -->    
+            <source type="com.integrallis.techconf.domain.Reminder" >
+	            <mapping property="id" />
+	            <mapping property="dateAndTime" />
+	            <mapping property="message" />
+                <mapping from="user.id" to="userId" /> 
+                <mapping from="scheduleEntry.id" to="scheduleEntryId" />                 
+            </source>
+        </sources>         
+		<!-- *********************************************************** -->
+		<!-- Comparator                                                  -->
+		<!-- *********************************************************** -->
+        <comparator useSuper="false" useReflection="false">
+            <compare property="id" />
+        </comparator>           
+    </dto>
+</dtos>

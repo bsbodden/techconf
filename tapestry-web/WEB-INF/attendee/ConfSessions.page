@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE page-specification PUBLIC
+  "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
+  "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+
+<page-specification>
+	
+    <!-- Used to add javascript to response -->
+	<inject property="ajaxRequest" object="service:tacos.AjaxWebRequest" />
+	<inject property="scheduleService" object="service:app.ScheduleService" />    
+	
+    <!-- variables page defined -->	    
+    <property name="room"/>
+    <property name="currentTime"/>
+   	<property name="session"/>
+           
+    <!-- These attributes are stored so we can persist them call to call -->
+    <!-- they are the sessions that store the available and assigned sesions -->
+	<property name="allSessions" persist="session"/>
+	<property name="sessionsAssigned" persist="session"/>
+	<property name="dateRangeModel" persist="session"/>
+   	<property name="startTime" persist="session"/>
+   	<property name="stopTime" persist="session"/>
+	<property name="rooms" persist="session"/>
+                
+	<!-- parts for the page -->
+    <component id="ifUserHasSession" type="If">
+		<binding name="condition" value="ognl:sessionsAssigned.containsKey(session.sessionId)"/>
+	</component>
+   	
+	<component id="sessionsSignedUpFor" type="Foreach">
+		<binding name="value" value="ognl:session"/>		
+		<binding name="source" value="ognl:sessionsAssigned"/>
+	</component>	 
+    
+    <!-- Add the session to your available ones -->
+   	<component id="addSession" type="tacos:AjaxDirectLink">
+		<binding name="listener" value="ognl:listeners.addSession"/>
+		<binding name="parameters" value="ognl:session.sessionId"/>
+        <binding name="processScripts" value="ognl:true" />
+        <binding name="updateComponents" value="ognl:{'note_' + session.sessionId}" />        
+        <binding name="fadeShow" value="ognl:'note_' + session.sessionId + '(300)'"/>
+        <binding name="highlight"
+            value="ognl:'note_' + session.sessionId + '([255,255,184], 500, 500) := any([255,255,184], 500, 500)'"/>        
+	</component>      
+
+  	<component id="removeSession" type="tacos:AjaxDirectLink">
+		<binding name="listener" value="ognl:listeners.removeSession"/>
+		<binding name="parameters" value="ognl:{sessionsAssigned.get(session.sessionId).id,session.sessionId}"/>
+        <binding name="processScripts" value="ognl:true" />
+        <binding name="updateComponents" value="ognl:{'note_' + session.sessionId}" />        
+        <binding name="fadeShow" value="ognl:'note_' + session.sessionId + '(300)'"/>
+        <binding name="highlight"
+            value="ognl:'note_' + session.sessionId + '([255,255,184], 500, 500) := any([255,255,184], 500, 500)'"/>        
+	</component>                   
+      
+      
+           
+</page-specification>

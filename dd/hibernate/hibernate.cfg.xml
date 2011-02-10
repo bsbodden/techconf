@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration
+    PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+	<!-- =================================================================== -->
+	<!-- Session Factory used for Testing                                    -->
+	<!-- =================================================================== -->
+	<session-factory>
+	    <!--
+		<property name="hibernate.connection.url">jdbc:mysql://localhost/test</property>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">valencia</property>
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		-->
+		<property name="hibernate.show_sql">true</property>
+
+		<mapping resource="com/integrallis/techconf/domain/Abstract.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/AbstractStatus.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/Address.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/Answer.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/AttendeeGroup.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/BlogLink.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/Booth.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/Conference.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/News.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/Presentation.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/PresentationLevel.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/PresentationTopic.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/PresentationType.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/PricingRule.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/Question.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/QuestionChoice.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/Questionnaire.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/QuestionType.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/Reminder.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/Role.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/Room.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/ScheduleEntry.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/Session.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/Track.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/User.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/UserRole.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/Venue.hbm.xml" />
+		<mapping resource="com/integrallis/techconf/domain/Book.hbm.xml" />
+	</session-factory>
+</hibernate-configuration>

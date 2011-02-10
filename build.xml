@@ -1,0 +1,536 @@
+<?xml version="1.0"?>
+<project name="TechConf" default="all" basedir=".">
+
+    <description>
+    ============================================================================        
+    Beginning Enterprise Open Source Java - By Brian Sam-Bodden
+    ============================================================================    
+    This build script was developed to be a generic enterprise development build
+    script using ANT 1.6.5 (ant.apache.org). To customize it or use it for other 
+    projects modify the build.properties file.
+    </description>
+    
+    <!-- =================================================================== -->
+    <!-- Imports                                                             -->
+    <!-- =================================================================== -->
+    <import file="ant/macros.xml"/>    
+
+    <!-- =================================================================== -->
+    <!-- Initialization                                                      -->
+    <!-- =================================================================== -->
+
+    <property file="build.properties"/>  
+    
+    <!-- =========== -->
+    <!-- Directories -->
+    <!-- =========== -->
+    <property name="build" location="build" />
+    <property name="lib" location="lib" />   
+    
+    <!-- Source -->
+    <property name="src" location="src" />         
+    <property name="src-java" location="${src}/java" />
+    <property name="src-test" location="${src}/test" /> 
+    <property name="src-j2ee" location="${src}/j2ee" />
+    <property name="src-aspects" location="${src}/aspects" />
+    
+    <!-- Source Web Folders -->
+    <property name="tapestry-web" location="tapestry-web" />
+    <property name="spring-web" location="spring-web" />    
+ 
+    <!-- Generated Documentation / Reports -->
+    <property name="docs" location="docs" />
+    <property name="docs-api" location="${docs}/api" />
+    <property name="docs-html-source" location="${docs}/source" />
+    <property name="docs-test" location="${docs}/tests" />
+    <property name="checkstyle-reports" location="${docs}/checkstyle" /> 
+    <property name="metrics-reports" location="${docs}/metrics" /> 
+    
+    <!-- Build Artifact Destinations -->
+    <property name="classes" location="bin" />    
+    <property name="dist" location="dist" />    
+    
+    <!-- Deployment Descriptors -->
+    <property name="dd" location="dd" />         
+    <property name="dd-dynadto" location="${dd}/dynadto" />
+    <property name="dd-har" location="${dd}/har" />
+    <property name="dd-ddto" location="${dd}/ddto" />
+    <property name="dd-ejbjar" location="${dd}/ejbjar" />
+    <property name="dd-spring" location="${dd}/spring" />
+    
+    <!-- Libraries -->
+    <property name="commons-beanutils-lib" location="${lib}/commons-beanutils" />    
+    <property name="commons-jexl-lib" location="${lib}/commons-jexl" />    
+    <property name="commons-lang-lib" location="${lib}/commons-lang" />    
+    <property name="commons-logging-lib" location="${lib}/commons-logging" />    
+    <property name="commons-collections-lib" location="${lib}/commons-collections" />
+    <property name="dynadto-lib" location="${lib}/dynadto" />                
+    <property name="xom-lib" location="${lib}/xom" />                    
+    <property name="jboss-lib" location="${lib}/jboss" />    
+    <property name="hibernate-lib" location="${lib}/hibernate" />
+    <property name="testng-lib" location="${lib}/testng" />
+    <property name="aspectj-lib" location="${lib}/aspectj" />
+    <property name="informa-lib" location="${lib}/informa" />
+    <property name="dbunit-lib" location="${lib}/dbunit" />
+    <property name="easymock-lib" location="${lib}/easymock" />
+    <property name="mysql-connector-lib" location="${lib}/mysql-connector" />
+    <!-- Libraries in WEB-INF/lib -->
+    <property name="tapestry-webinf-lib" location="${tapestry-web}/WEB-INF/lib" />
+    <property name="spring-webinf-lib" location="${spring-web}/WEB-INF/lib" />
+    
+    <!-- ===== -->
+    <!-- Files -->
+    <!-- ===== -->
+    
+    <property name="ear-filename" value="${app.name}.ear" />
+    <property name="ear-file" value="${dist}/${ear-filename}" /> 
+    <property name="ejb3-filename" value="${app.name}-business.ejb3" />
+    <property name="ejb3-file" value="${dist}/${ejb3-filename}" /> 
+    <property name="war-filename" value="${app.name}.war" />
+    <property name="war-file" value="${dist}/${war-filename}" /> 
+    <property name="spring-war-filename" value="${app.name}-spring.war" />
+    <property name="spring-war-file" value="${dist}/${spring-war-filename}" />     
+    <property name="har-filename" value="${app.name}.har" />
+    <property name="har-file" value="${dist}/${har-filename}" /> 
+    <property name="ddto-filename" value="${app.name}.ddto" />
+    <property name="ddto-file" value="${dist}/${ddto-filename}" /> 
+    
+    <!-- ===== -->
+    <!-- Paths -->
+    <!-- ===== -->
+    
+    <path id="all.source.path">
+        <pathelement path="${src-java}"/>
+        <pathelement path="${src-test}"/>
+        <pathelement path="${src-j2ee}"/>
+        <pathelement path="${src-aspects}"/>
+    </path>    
+    
+    <!-- =========== -->
+    <!-- Class Paths -->
+    <!-- =========== -->
+    
+    <path id="aspectj.class.path">
+        <fileset dir="${aspectj-lib}">
+            <include name="*.jar"/> 
+        </fileset>            
+    </path>      
+    
+    <path id="class.path">
+        <fileset dir="${commons-beanutils-lib}">
+            <include name="*.jar"/> 
+        </fileset>
+        <fileset dir="${commons-jexl-lib}">
+            <include name="*.jar"/> 
+        </fileset>        
+        <fileset dir="${commons-lang-lib}">
+            <include name="*.jar"/> 
+        </fileset>
+        <fileset dir="${commons-logging-lib}">
+            <include name="*.jar"/> 
+        </fileset>  
+        <fileset dir="${commons-collections-lib}">
+            <include name="*.jar"/> 
+        </fileset>          
+        <fileset dir="${dynadto-lib}">
+            <include name="*.jar"/> 
+        </fileset>
+        <fileset dir="${xom-lib}">
+            <include name="*.jar"/> 
+        </fileset> 
+        <fileset dir="${jboss-lib}">
+            <include name="*.jar"/> 
+        </fileset>   
+        <fileset dir="${hibernate-lib}">
+            <include name="*.jar"/> 
+        </fileset>         
+        <fileset dir="${testng-lib}">
+            <include name="*.jar"/> 
+        </fileset> 
+        <fileset dir="${easymock-lib}">
+            <include name="*.jar"/> 
+        </fileset>        
+        <fileset dir="${dbunit-lib}">
+            <include name="*.jar"/> 
+        </fileset>         
+        <fileset dir="${mysql-connector-lib}">
+            <include name="*.jar"/> 
+        </fileset>         
+        <fileset dir="${tapestry-webinf-lib}">
+            <include name="*.jar"/> 
+        </fileset>       
+        <fileset dir="${spring-webinf-lib}">
+            <include name="*.jar"/> 
+        </fileset>         
+        <fileset dir="${informa-lib}">
+            <include name="*.jar"/> 
+        </fileset>          
+        <path refid="aspectj.class.path"/>
+    </path> 
+    
+    <path id="app.class.path">
+        <pathelement location="${classes}" />
+        <path refid="class.path"/> 
+    </path>
+
+    <!-- =========== -->
+    <!-- Patternsets -->
+    <!-- =========== -->
+    
+    <patternset id="ear.set">
+        <include name="${ejb3-filename}" />
+        <include name="${war-filename}" />
+        <include name="${har-filename}" />
+        <include name="${ddto-filename}" />
+    </patternset>  
+    
+    <patternset id="non.source.set">
+        <exclude name="**/*.java" />
+        <exclude name="**/read-me.txt" />
+        <exclude name="**/package.html" />
+    </patternset>
+    
+    <patternset id="aspectj-lib.set">
+        <include name="aspectjrt.jar" />
+    </patternset>
+    
+    <!-- ======== -->
+    <!-- TaskDefs -->
+    <!-- ======== -->  
+    
+    <!-- AspectJ - eclipse.org -->
+    <taskdef 
+        resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties"
+        classpathref="aspectj.class.path"
+    />       
+    
+    <!-- =================================================================== -->
+    <!-- Target: compile                                                     -->
+    <!-- Compiles all classes                                                -->
+    <!-- MUST use JDK 1.5 compiler                                           -->    
+    <!-- =================================================================== -->
+  
+    <target name="compile" depends="compile-init" description="Compiles all classes (JDK1.5)">        
+         <iajc source="1.5"
+               destdir="${classes}" 
+              classpathref="class.path" 
+              debug="on"
+               showWeaveInfo="${aspectj.showWeaveInfo}">
+            <sourceroots>
+                <path refid="all.source.path" />
+            </sourceroots>                
+        </iajc>    
+        <!--
+        <javac
+            destdir="${classes}"
+            classpathref="class.path"
+            debug="on"
+            deprecation="on"
+            optimize="off"
+            >
+            <src>
+                <path refid="all.source.path" />
+            </src>
+        </javac>
+        -->
+    </target>    
+    
+    <target name="compile-init">
+        <target-banner target="compile"/>
+        <mkdir dir="${classes}"/>
+        <copy todir="${classes}">
+            <fileset dir="${src-java}">
+                <patternset refid="non.source.set" />
+            </fileset>
+            <fileset dir="dd">
+                <include name="*.properties"/>
+            </fileset>          
+        </copy>         
+    </target>
+    
+    <target name="compile-clean">
+        <delete includeemptydirs="true">
+            <fileset dir="${classes}" includes="**/*"/>
+        </delete>        
+    </target>    
+    
+    <!-- =================================================================== -->
+    <!-- Target: package-ejb                                                 -->
+    <!-- Package all the non-persistence EJB classes                         -->
+    <!-- =================================================================== -->    
+    <target name="package-ejb" depends="compile,package-ejb-init"
+            description="Package all the non-persistence EJB classes">
+        <jar jarfile="${ejb3-file}" manifest="${dd-ejbjar}/Manifest.mf">
+            <fileset dir="${classes}">
+                <include name="**"/>
+                <include name="*.properties"/>
+                <exclude name="**/web/**/*"/>
+                <exclude name="net/**/*"/>
+                <exclude name="**/*Test*"/>
+                <exclude name="**/dto/*.class"/>
+                <exclude name="**/spring/**/*.class"/>
+            </fileset>      
+        </jar>
+    </target>    
+    
+    <target name="package-ejb-init">
+        <target-banner target="package-ejb"/>
+        <mkdir dir="${dist}"/>
+    </target>
+    
+    <target name="package-ejb-clean">
+        <delete file="${ejb3-file}"/>
+    </target>      
+    
+    <!-- =================================================================== -->
+    <!-- Target: package-web                                                 -->
+    <!-- Package the web module                                              -->
+    <!-- =================================================================== -->    
+    <target name="package-web" depends="compile" 
+        description="Package the web module" >
+        <target-banner target="package-web"/>
+        <war warfile="${war-file}"
+             webxml="dd/web/web.xml">
+            <fileset dir="${tapestry-web}">
+                <include name="**/*"/>
+            </fileset>
+            <webinf dir="dd/web">
+                <include name="jboss-web.xml"/>
+            </webinf>
+            <classes dir="${classes}">
+                <include name="**/web/**/*"/>
+                <include name="net/**/*"/>                
+            </classes>            
+        </war>
+    </target>
+    
+    <target name="package-web-clean">
+        <delete file="${war-file}"/>
+    </target>    
+    
+    <!-- =================================================================== -->
+    <!-- Target: package-spring-web                                          -->
+    <!-- Package the Spring web module                                       -->
+    <!-- =================================================================== -->    
+    <target name="package-spring-web" depends="compile" 
+        description="Package the Spring web module" >
+        <target-banner target="package-spring-web"/>
+        <war destfile="${spring-war-file}"
+             webxml="${dd-spring}/web.xml">
+            <fileset dir="${spring-web}">
+                <include name="**/*"/>
+            </fileset>
+            <webinf dir="${dd}">
+                <include name="dynadto/*.dto.xml"/>
+            </webinf>
+            <webinf dir="${dd-spring}">
+                <include name="techconf-*.xml"/>
+            </webinf>
+            <classes dir="${classes}">                            
+                <exclude name="**/ejb/**/*"/>
+                <exclude name="**/HibernateExceptionConverterAspect*"/>
+                <exclude name="**/test/**/*"/>
+                <exclude name="**/*Test.class"/>
+                <exclude name="**/web/tapestry/**/*"/>
+            </classes>            
+        </war>
+    </target>
+    
+    <target name="package-spring-web-clean">
+        <delete file="${spring-war-file}"/>
+    </target>      
+    
+    <!-- =================================================================== -->
+    <!-- Target: package-har                                                 -->
+    <!-- Package the JBoss Hibernate Archive (HAR)                           -->
+    <!-- =================================================================== -->    
+    
+    <target name="package-har" depends="compile" 
+            description="Package the JBoss Hibernate Archive (HAR)">
+        <target-banner target="package-har"/>
+        <jar jarfile="${har-file}">
+            <fileset dir="${classes}">
+                <include name="**/domain/*.hbm.xml"/>
+                <include name="**/domain/*.class"/>
+            </fileset>
+            <fileset dir="${dd-har}">
+                <include name="**/*.xml"/>
+            </fileset>            
+        </jar>
+    </target>    
+    
+    <target name="package-har-clean">
+        <delete file="${har-file}"/>
+    </target>    
+    
+    <!-- =================================================================== -->
+    <!-- Target: package-ddtp                                                -->
+    <!-- Package the JBoss DynaDTO Archive (DDTO)                            -->
+    <!-- =================================================================== -->    
+    
+    <target name="package-ddto" depends="compile" 
+            description="Package the JBoss DynaDTO Archive (DDTO)">
+        <target-banner target="package-ddto"/>
+        <jar jarfile="${ddto-file}">
+            <fileset dir="${classes}">
+                <include name="**/dto/*.class"/>
+            </fileset>
+            <fileset dir="${dd-ddto}">
+                <include name="**/*.xml"/>
+            </fileset>    
+            <!-- add the mappings -->
+            <fileset dir="${dd-dynadto}">
+                <include name="**/*.dto.xml"/>
+            </fileset>        
+        </jar>
+    </target>    
+    
+    <target name="package-ddto-clean">
+        <delete file="${ddto-file}"/>
+    </target>
+    
+    <!-- =================================================================== -->
+    <!-- Target: package-ear                                                 -->
+    <!-- Creates a deployable EAR file                                       -->
+    <!-- =================================================================== -->
+
+    <target name="package-ear" depends="package-ejb,package-web,package-har,package-ddto" 
+            description="Creates a deployable EAR file">
+        <target-banner target="package-ear"/>
+        <ear destfile="${ear-file}" 
+             appxml="${dd}/application.xml"
+            >            
+            <fileset dir="${dist}">
+                <patternset refid="ear.set"/>            
+            </fileset>    
+            <fileset dir="${aspectj-lib}">
+                <patternset refid="aspectj-lib.set"/>            
+            </fileset>    
+            <fileset dir="${informa-lib}">
+                <include name="*.jar"/>            
+            </fileset>                
+            <metainf dir="${dd}" includes="jboss-app.xml"/>
+        </ear>    
+    </target>
+    
+    <target name="package-ear-clean">
+        <delete file="${ear-file}"/>
+    </target>
+    
+    <!-- =================================================================== -->
+    <!-- Target: test                                                        -->
+    <!-- Runs all tests                                                      -->
+    <!-- =================================================================== -->    
+    <target name="test" depends="compile,test-clean"  
+            description="Runs all tests">
+        <target-banner target="tests"/>
+        <test-run
+            classpathref="app.class.path"
+            output="${docs-test}"
+        />
+    </target>
+    
+    <target name="test-clean">
+        <delete dir="${docs-api}" />        
+        <delete>
+            <fileset dir="${basedir}">
+                <include name="*_com.integrallis.techconf*Test_*.xml" />
+                <include name="testng-failures.xml" />
+            </fileset>
+        </delete>
+    </target>
+    
+    <!-- =================================================================== -->
+    <!-- Target: docs                                                        -->
+    <!-- Generates documentation artifacts: Javadoc, Browseable HTML, etc.   -->
+    <!-- =================================================================== -->
+
+    <target name="generate-docs"  
+            description="Generates all documentation">
+        <target-banner target="generate-docs"/>
+        <generate-javadoc 
+            class.path="class.path" 
+            dest="${docs-api}" 
+            source.path="all.source.path" 
+            year="2005"
+        />
+        <generate-html
+            src="${src}"
+            dest="${docs-html-source}"
+        />
+        <generate-checkstyle
+            src="${src}"
+            checkstyle-reports="${checkstyle-reports}"
+        />
+        <generate-metrics
+            src="${src}"
+            report-dir="${metrics-reports}"
+            report-name="${ant.project.name}"
+        />
+    </target> 
+    
+    <target name="generate-docs-clean">
+        <delete dir="${docs}" />
+    </target>
+    
+    <!-- =================================================================== -->
+    <!-- Target: clean-all                                                   -->
+    <!-- Removes all build artifacts                                         -->
+    <!-- =================================================================== --> 
+    <target name="clean-all" description="Removes all build artifacts">
+        <antcall target="compile-clean" />
+        <antcall target="generate-docs-clean" />        
+        <antcall target="test-clean" />
+        <antcall target="package-ejb-clean" />
+        <antcall target="package-web-clean" />        
+        <antcall target="package-har-clean" />        
+        <antcall target="package-ddto-clean" />        
+        <antcall target="package-ear-clean" />     
+        <antcall target="package-spring-web-clean" />
+    </target>
+    
+    <!-- =================================================================== -->
+    <!-- Target: package-deploy                                              -->
+    <!-- Packages the ear and copies it to the (hot)deployment directory.    -->
+    <!-- =================================================================== -->
+    <target name="package-deploy" depends="all"
+            description="Copies the ear to the deployment directory">
+        <copy todir="${ear.deployment}">
+            <fileset dir="${dist}">
+                <include name="${ear-filename}"/>
+                <include name="${spring-war-filename}"/>                
+            </fileset>
+        </copy>    
+    </target>
+    
+    <!-- =================================================================== -->
+    <!-- Target: all                                                         -->
+    <!-- Tests and Packages the J2EE Application                             -->
+    <!-- =================================================================== -->
+    
+    <target name="all" depends="test,package-ear,package-spring-web" 
+            description="Tests and Packages the JBoss J2EE &amp; Spring Applications" />
+
+    <!-- =================================================================== -->
+    <!-- Target: all-clean-first                                             -->
+    <!-- Tests and Packages the J2EE Application (Cleans First)              -->     
+    <!-- =================================================================== -->
+    
+    <target name="all-clean-first" depends="clean-all,all" 
+            description="Tests and Packages the JBoss J2EE &amp; Spring Applications (Cleans First)" />
+    
+    <!-- =================================================================== -->
+    <!-- Target: export-db                                                        -->
+    <!-- Exports the contents of the test database                                                      -->
+    <!-- =================================================================== -->    
+    <target name="export-db" description="Exports the content of the test database">
+        <target-banner target="export-db"/>
+        <export-data
+            driver="${test.db.driver}"
+            url="${test.db.url}"
+            username="${test.db.username}"
+            password="${test.db.password}"
+        />
+    </target>    
+
+</project>

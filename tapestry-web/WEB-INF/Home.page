@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE page-specification PUBLIC
+  "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
+  "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+
+<page-specification>
+	
+    <inject property="conferenceService" 
+    		object="service:app.ConferenceService"/>
+
+	<property name="conference"/>
+    
+    <!-- Assets -->
+    <asset name="stylesheet" path="css/techconf.css"/>
+    <asset name="spacer" path="images/spacer.gif" />
+    <asset name="arrow"  path="images/arrow.gif" />    
+        	    		
+</page-specification>

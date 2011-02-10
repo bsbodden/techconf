@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<dtos>
+    <!-- *********************************************************** -->
+    <!-- QuestionTypeInfo                                            -->
+    <!-- *********************************************************** -->
+    <dto target="com.integrallis.techconf.dto.QuestionTypeInfo" useProxy="yes">
+        <sources>
+		    <!-- *********************************************************** -->
+            <!-- QuestionType                                                -->
+            <!-- *********************************************************** -->    
+            <source type="com.integrallis.techconf.domain.QuestionType" automap="true" />
+        </sources>   
+		<!-- *********************************************************** -->
+		<!-- Comparator                                                  -->
+		<!-- *********************************************************** -->
+        <comparator useSuper="false" useReflection="false">
+            <compare property="id" />
+        </comparator>           
+    </dto>
+</dtos>

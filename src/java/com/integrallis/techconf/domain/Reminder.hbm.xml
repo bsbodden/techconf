@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.integrallis.techconf.domain">
+	<class name="Reminder" table="reminder">
+		<id
+			column="PK_ID"
+			name="Id"
+			type="integer"
+		>
+			<generator class="identity" />
+		</id>
+		<property
+			column="DATEANDTIME"
+			length="19"
+			name="DateAndTime"
+			not-null="true"
+			type="timestamp"
+		 />
+		<property
+			column="MESSAGE"
+			length="64"
+			name="Message"
+			not-null="false"
+			type="string"
+		 />
+		<property
+		    column="SENT"
+			name="Sent"
+			type="boolean"
+		/>	
+		<many-to-one
+			class="ScheduleEntry"
+			name="ScheduleEntry"
+			not-null="true"
+		>
+			<column name="FK_SCHEDULEENTRY_ID" />
+		</many-to-one>
+		<many-to-one
+			class="User"
+			name="User"
+			not-null="true"
+		>
+			<column name="FK_USER_ID" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

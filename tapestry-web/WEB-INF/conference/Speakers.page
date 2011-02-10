@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE page-specification PUBLIC
+  "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
+  "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+
+<page-specification>
+    
+    <component id="presenterList" type="For">
+		<binding name="value" value="ognl:presenter"/>		
+		<binding name="source" value="ognl:presenters"/>
+        <binding name="element" value="literal:tr"/>
+	</component>
+   
+<!--     
+    <component id="speakerHref" type="ExternalLink">
+        <binding name="page" value="speakers/PresenterBio"/>
+        <binding name="parameters" value="ognl:presenter.presenterId"/>
+    </component>
+-->
+    
+    <component id="speakerPicture" type="Any">	
+    	<binding name="src" value="ognl:speakerImage"/>
+   	</component>
+  
+</page-specification>

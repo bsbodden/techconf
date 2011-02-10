@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+  <title>TechConf - Setting up your Environment</title>
+</head>
+<body>
+<h3>System Requirements</h3>
+<ul>
+<li>Java Version 1.5: This application relies on Java 1.5 features such as annotations</li>
+<li>Ant 1.6.5: This application makes use of Ant macros (there use Ant 1.6.5 or the first known version to supports macros)</li>
+<li>MySQL Server: Currently the application works with MySQL server although it should be relatively easy to use a different database, 
+since the underlying persistance mechanism is Hibernate</li>
+</ul>
+<h3>Seting up you environment to work with TechConf</h3>
+<h4>Create a build.properties</h4>
+Make a copy of the file build.properties.sample file located at the root of the project. Name it build.properties
+This file contains any customizable/overridable parameters for the build. Including database URLs and driver information.
+<h4>Building from the Command Line with Ant</h4>
+Once you have Ant 1.6.5 and Java 5 installed in your system you should be able to build by simply typing "ant" at the command line (build.xml is located at the root of the project).
+Issuing the command "ant -p" should list the available targets in the build.
+<h4>Configuring MySQL</h4>
+=========<br/>
+Downloads<br/>
+=========<br/>
+You will need to download MySQL Server Version is 4.1.7-nt (any newer version should work) if you are working on Windows or a version suitable for your operating system.
+<br/>
+===================<br/>
+Create the database<br/>
+===================<br/>
+The file "techconf-create-and-populate.sql" contains a complete SQL script to create the database and populate some initial data*<br/>
+<br/>
+//<br/>
+// MySQL Administrator<br/>
+//<br/>
+You can create the database using the MySQL Administrator tool (GUI) and selecting the "Restore" option, then clicking the "Open Backup File" button at the bottom of the screen.<br/>
+
+<br/>-- OR --<br/>
+
+//<br/>
+// MySQL Command Line Client<br/>
+//<br/>
+
+Connect to your database, you should see something like:<br/>
+
+|Enter password: ********<br/>
+|Welcome to the MySQL monitor.  Commands end with ; or \g.<br/>
+|Your MySQL connection id is 2 to server version: 4.1.7-nt<br/>
+|<br/>
+|Type 'help;' or '\h' for help. Type '\c' to clear the buffer.<br/>
+
+mysql>create database techconf;<br/>
+Query OK, 1 row affected (0.00 sec)<br/>
+
+mysql> use techconf;<br/>
+Database changed;<br/>
+
+mysql> show tables;<br/>
+Empty set (0.00 sec)<br/>
+
+you can now create tables, issue queries, etc.<br/>
+
+<h4>Configuring JBoss 4.X</h4>
+=========<br/>
+Downloads<br/>
+=========<br/>
+
+Download JBoss version jboss-4.0.3RC1 (or later), use the Installer version for Windows to simplifyt the install<br/>
+
+<b>Note: Some users have reported problems when using the ZIP distribution of JBoss. The windows installer version seems to have no problems.</b><br/>
+
+The root directory of the install is %JBOSS_HOME% <br/>
+
+=============<br/>
+Server Config<br/>
+=============<br/>
+
+//<br/>
+// Libraries<br/>
+//<br/>
+
+Copy the file <br/>
+  mysql-connector-java-3.0.14-production-bin.jar* <br/>
+  *included in the setup/server/jboss directory<br/>
+To<br/>
+  %JBOSS_HOME%/server/default/lib directory<br/>
+
+Deploy <br/>
+  DynaDTO Service Archive (dynadto-1.0.sar) **<br/>
+To<br/>
+  %JBOSS_HOME%/server/default/deploy<br/>
+
+** This might be added to a deploy task soon!<br/>
+
+//<br/>
+// Data Source<br/>
+//<br/>
+
+Change the <connection-url> element in the provided file mysql-ds.xml<br/>
+Copy the file mysql-ds.xml to the JBoss deploy directory***<br/>
+***This assumes you have created the MySQL database, see the setup/db/mysql directory for instructions<br/>
+
+=================<br/>
+Deploying the EAR<br/>
+=================<br/>
+TechConf EAR is Deployed to a JBoss-4.0.3RC1 Instance<br/>
+Using the 'default' server configuration<br/>
+That is, to deploy the EAR (techconf.ear) copy it to the <br/>
+%JBOSS_HOME%/server/default/deploy<br/>
+
+//<br/>
+// application log file<br/>
+//<br/>
+Techconf uses Commons Logging for all of its logging. In JBoss,<br/>
+commons-logging defaults to using Log4J. Add the following entries<br/>
+to the file log4j.xml located in the %JBOSS_HOME%/server/default/conf<br/>
+Change the priority value to the DEBUG level desired.<br/>
+
+   &lt;appender name="TechConfLog" class="org.apache.log4j.FileAppender"&gt;<br/>
+      &lt;errorHandler class="org.jboss.logging.util.OnlyOnceErrorHandler"/&gt;<br/>
+      &lt;param name="Append" value="false"/&gt;<br/>
+      &lt;param name="File" value="${jboss.server.home.dir}/log/techconf.log"/&gt;<br/>
+      &lt;layout class="org.apache.log4j.PatternLayout"&gt;<br/>
+         &lt;param name="ConversionPattern" value="%d %-5p [%c] %m%n"/&gt;<br/>
+      &lt;/layout&gt;<br/>
+   &lt;/appender&gt;<br/>
+   
+   &lt;category name="com.integrallis.techconf" additivity="false"&gt;<br/>
+      &lt;appender-ref ref="TechConfLog"/&gt;<br/>
+      &lt;priority value="TRACE"/&gt;<br/>
+   &lt;/category&gt;<br/>
+
+//<br/>
+// JBoss mail service<br/>
+//<br/>
+
+Below is a sample configuration for the JBoss <br/>
+%JBOSS_HOME%/server/default/deploymail-service.xml <br/>
+The example below works with a POP3/SMTP enabled gmail account. <br/>
+Modify to use your own settings<br/>
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;<br/>
+&lt;!DOCTYPE server&gt;<br/>
+&lt;server&gt;<br/>
+  &lt;!-- ==================================================================== --&gt;<br/>
+  &lt;!-- Mail Connection Factory                                              --&gt;<br/>
+  &lt;!-- ==================================================================== --&gt;<br/>
+  &lt;mbean code="org.jboss.mail.MailService"
+         name="jboss:service=Mail"&gt;<br/>
+    &lt;attribute name="JNDIName"&gt;<br/>java:/Mail&lt;/attribute&gt;<br/>
+    &lt;attribute name="User"&gt;<br/>youremail@gmail.com&lt;/attribute&gt;<br/>
+    &lt;attribute name="Password"&gt;<br/>YOURPASSWORD&lt;/attribute&gt;<br/>
+    &lt;attribute name="Configuration"&gt;<br/>
+       &lt;configuration&gt;<br/>
+          &lt;property name="mail.store.protocol" value="pop3"/&gt;<br/>
+          &lt;property name="mail.transport.protocol" value="smtp"/&gt;<br/>
+          &lt;property name="mail.user" value="techconf@gmail.com"/&gt;<br/>
+          &lt;property name="mail.pop3.host" value="pop.gmail.com"/&gt;<br/>
+          &lt;property name="mail.smtp.host" value="smtp.gmail.com"/&gt;<br/>
+          &lt;property name="mail.smtp.port" value="465"/&gt;<br/>
+          &lt;property name="mail.smtp.user" value="youremail@gmail.com"/&gt;<br/>
+          &lt;property name="mail.smtp.password" value="YOURPASSWORD"/&gt;<br/>
+          &lt;property name="mail.smtp.auth" value="true"/&gt;<br/>
+          &lt;property name="mail.smtp.starttls.enable" value="true" /&gt;<br/>
+          &lt;property name="mail.from" value="noreply@techconf.org"/&gt;<br/>
+          &lt;property name="mail.debug" value="true"/&gt;<br/>
+          &lt;property name="mail.smtp.socketFactory.class" value="javax.net.ssl.SSLSocketFactory" /&gt;<br/>
+          &lt;property name="mail.smtp.socketFactory.port" value="465" /&gt;<br/>
+       &lt;/configuration&gt;<br/>
+       &lt;depends&gt;<br/>jboss:service=Naming&lt;/depends&gt;<br/>
+    &lt;/attribute&gt;<br/>
+  &lt;/mbean&gt;<br/>
+&lt;/server&gt;<br/>
+
+<h4>Configuring Eclipse</h4>
+This application was designed to work out the box with Eclipse 3.1 final release<br/>
+
+For easy of development the following plugins where also installed:<br/>
+
+//<br/>
+// JBossIDE<br/>
+//<br/>
+Version JBossIDE-1.5M2-ALL+EJB3.zip<br/>
+Get it at http://jboss.com/products/jbosside/downloads (the zip file)<br/>
+
+//<br/>
+// SQLExplorer<br/>
+//<br/>
+Version 2.2.4<br/>
+Get it from net.sourceforge.sqlexplorer (use the update site feature)<br/>
+
+//<br/>
+// Spindle<br/>
+//<br/>
+Not used until the upgrade to Tapestry 4.0 (keep track)<br/>
+
+//<br/>
+// AJDT<br/>
+//<br/>
+Get the latest version of the AspectJ Development Tools for Eclipse 3.1<br/>
+</body>
+</html>

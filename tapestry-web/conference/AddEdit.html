@@ -1,0 +1,26 @@
+	
+<html jwcid="@Border" title="Conference Add">
+
+<div id="pagecell1"> 	
+	<span jwcid="@ValidationErrors" delegate="bean:delegate"/>
+	
+	<!-- To print out validation errors, move to the outline 
+		Might not be able to move there if it needs some page level resource
+		see if we can set this via an application variable
+	span jwcid="@ValidationErrors" delegate="bean:delegate"/-->
+	
+	<!-- whats delegate for ? delegate="bean:delegate" -->
+	<!-- apparently here ognl IS required, check if this is the same way in
+		the beta4 etc -->
+	<form jwcid="@Form" delegate="bean:delegate" listener="ognl:listeners.add">        
+        <table border="0">
+          	<tr>
+                <td><span jwcid="@FieldLabel" field="component:confTitle">Conf Title</span></td>
+                <td><input type="text" jwcid="confTitle"/></td>
+           </tr>
+		</table>
+		<input type="submit" value="Add"/>
+	</form>    
+	
+</div>
+</html>    

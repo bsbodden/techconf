@@ -1,0 +1,68 @@
+
+<body jwcid="@ConferenceBorder" title="Conference Schedule">
+                
+<form jwcid="@Form" listener="ognl:listeners.changeConferenceDate">
+     <span jwcid="@FieldLabel" field="component:itemSelection">Selection</span>
+    <span jwcid="itemSelection@PropertySelection"
+       model="ognl:dateRangeModel"
+       value="ognl:dateSelect"
+       onchange="javascript:this.form.events.refresh();"
+       displayName="Choose an item"/>
+<HR />
+    <table border="1">
+        <!-- Display rooms at the top -->
+        <tr>
+            <td> </td>                     
+            <td jwcid="@For"
+                source="ognl:rooms"
+                value="ognl:room"
+                element="td"
+                style="secondary">
+                <span jwcid="@Insert" value="ognl:room.roomName"/>
+          	</td>
+        </tr>
+        
+        <!-- Display the times down the left side -->
+        <tr jwcid="@DateSequentialDisplay"
+            startTime="ognl:startTime"
+            stopTime="ognl:stopTime"
+            timeOn="ognl:currentTime"
+            increment="30"
+            element="tr"
+            subElement="td"
+            style="secondary">
+            
+            	<!-- Display the data across, and whether their is a room there -->
+				<td jwcid="@For"
+                    source="ognl:rooms"
+                    value="ognl:room">
+                    <!-- now here use the room number and the time frame
+                    	 to look up the start of a session -->        
+	                    <span jwcid="@InsertRoom" 
+                        		room="ognl:room"
+                        		increment="30"
+                        		date="ognl:currentTime"
+                        		value="ognl:session"
+                        		source="ognl:allSessions"
+                            	element="td">    
+									<div jwcid="selectedSession@Any" id="ognl:'note_' + session.sessionId" >
+                                        <div jwcid="ifUserHasSession">
+	                                    	<span jwcid="@Insert" value="ognl:session.presentation.title"/>                                            
+	<a jwcid="removeSession">Remove</a>                                 
+    									</div>
+                                        <div jwcid="@Else">
+	                                    	<span jwcid="@Insert" value="ognl:session.presentation.title"/><br />
+<span jwcid="@Insert" value="ognl:session.dateTimeBegin"/><br />
+<span jwcid="@Insert" value="ognl:session.dateTimeEnd"/>
+	<a jwcid="addSession">Add</a>                                 
+    									</div>                                                                                
+                                        
+									</div>                                    
+                       	</span>                    	
+              	</td>
+                
+        </tr>
+    </table>	
+    
+</form>            
+</body>

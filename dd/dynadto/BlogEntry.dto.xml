@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<dtos>
+    <!-- *********************************************************** -->
+    <!-- BlogEntry                                                   -->
+    <!-- *********************************************************** -->
+    <dto target="com.integrallis.techconf.dto.BlogEntry" useProxy="yes">
+        <sources>
+		    <!-- *********************************************************** -->
+            <!-- Informa's ItemIF                                            -->
+            <!-- *********************************************************** -->
+	        <!-- interface="de.nava.informa.core.ItemIF" -->
+	        <source type="de.nava.informa.impl.basic.Item">
+	            <mapping property="title" />
+	            <mapping property="description" />	            
+	            <mapping from="date" to="publishedDate" /> 	        
+		   </source>		   
+        </sources> 
+		<!-- *********************************************************** -->
+		<!-- Expressions                                                 -->
+		<!-- *********************************************************** -->        
+        <expressions>
+            <expression target="Link" value="param.getLink().toString()" />
+        </expressions>          
+		<!-- *********************************************************** -->
+		<!-- Comparator                                                  -->
+		<!-- *********************************************************** -->
+        <comparator useSuper="false" useReflection="false">
+            <compare property="PublishedDate" />
+        </comparator>           
+    </dto>
+</dtos>

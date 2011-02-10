@@ -1,0 +1,15 @@
+// app 
+app.name=techconf
+
+// aspectj
+aspectj.showWeaveInfo=false
+
+// jboss deploy directory
+ear.deployment=C:/java/jboss-4.0.3RC1/server/default/deploy
+
+// test db
+test.db.url=jdbc:mysql://localhost/test
+test.db.driver=com.mysql.jdbc.Driver
+test.db.username=user
+test.db.password=pass
+test.db.hibernate.dialect=org.hibernate.dialect.MySQLDialect

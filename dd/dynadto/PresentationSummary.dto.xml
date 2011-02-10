@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dtos>
+    <!-- *********************************************************** -->
+    <!-- PresentationSummary                                         -->
+    <!-- *********************************************************** -->
+    <dto target="com.integrallis.techconf.dto.PresentationSummary" useProxy="yes">  
+        <sources>
+		    <!-- *********************************************************** -->
+            <!-- Presentation                                                -->
+            <!-- *********************************************************** -->
+	        <source type="com.integrallis.techconf.domain.Presentation">
+	            <mapping from="id" to="presentationId" />
+	            <mapping from="abstract.presenter.id" to="presenterId" /> 
+	            <mapping from="abstract.title" to="title" />
+	            <mapping from="abstract.body" to="description" />
+	            <mapping from="abstract.presentationLevel.name" to="level" /> 
+	            <mapping from="abstract.presentationType.name" to="type" /> 	            
+	            <mapping from="abstract.presentationTopic.name" to="topic" />  	        
+	            <mapping from="abstract.track.title" to="track" />  	        
+		    </source>
+        </sources> 
+		<!-- *********************************************************** -->
+		<!-- Expressions                                                 -->
+		<!-- *********************************************************** -->        
+        <expressions>
+            <expression 
+                target="PresenterName" 
+                value="param.getAbstract().getPresenter().getFirstName() + util.space() + param.getAbstract().getPresenter().getLastName()" 
+            />
+        </expressions>                
+		<!-- *********************************************************** -->
+		<!-- Comparator                                                  -->
+		<!-- *********************************************************** -->
+        <comparator useSuper="false" useReflection="false">
+            <compare property="presentationId" />
+        </comparator>  
+	</dto>
+</dtos>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+	<display-name>Technical Conference</display-name>
+    
+  <servlet>
+  	<servlet-name>tech-conf</servlet-name>
+    <servlet-class>org.apache.tapestry.ApplicationServlet</servlet-class>
+  	<load-on-startup>0</load-on-startup>
+  </servlet>
+     
+  <servlet-mapping>
+  	<servlet-name>tech-conf</servlet-name>
+  	<url-pattern>/app</url-pattern>
+  </servlet-mapping>  
+
+  <servlet-mapping>
+    <servlet-name>tech-conf</servlet-name>
+    <url-pattern>*.html</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>tech-conf</servlet-name>
+    <url-pattern>*.external</url-pattern>
+  </servlet-mapping>
+    
+  <servlet-mapping>
+    <servlet-name>tech-conf</servlet-name>
+    <url-pattern>*.direct</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>tech-conf</servlet-name>
+    <url-pattern>*.sdirect</url-pattern>
+  </servlet-mapping>  
+  
+  <servlet-mapping>
+    <servlet-name>tech-conf</servlet-name>
+    <url-pattern>*.svc</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>tech-conf</servlet-name>
+    <url-pattern>/assets/*</url-pattern>
+  </servlet-mapping>
+
+    <welcome-file-list>
+      <welcome-file>Home.html</welcome-file>
+    </welcome-file-list>
+  
+<!--
+
+  <security-constraint>
+      <web-resource-collection>
+         <web-resource-name>The Protected Calculator</web-resource-name>
+         <url-pattern>services/security/addfund.jsp</url-pattern>
+         <url-pattern>services/security/addinvestor.jsp</url-pattern>
+         <url-pattern>services/security/calculator.jsp</url-pattern>
+      </web-resource-collection>
+
+      <auth-constraint>
+         <role-name>AdminUser</role-name>
+         <role-name>RegularUser</role-name>
+      </auth-constraint>
+       do not encrypt. 
+      <user-data-constraint>
+         <transport-guarantee>NONE</transport-guarantee>
+      </user-data-constraint>
+   </security-constraint>
+
+   <security-role>
+      <description>Authorized to access everything.</description>
+      <role-name>AdminUser</role-name>
+   </security-role>
+   <security-role>
+      <description>Authorized to limited access.</description>
+      <role-name>RegularUser</role-name>
+   </security-role>
+
+   <login-config>
+      <auth-method>FORM</auth-method>
+      <form-login-config>
+         <form-login-page>services/security/login.html</form-login-page>
+         <form-error-page>services/security/loginFailed.html</form-error-page>
+      </form-login-config>
+   </login-config>
+-->
+</web-app>

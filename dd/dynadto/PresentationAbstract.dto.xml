@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dtos>
+    <!-- *********************************************************** -->
+    <!-- PresentationAbstract                                        -->
+    <!-- *********************************************************** -->
+    <dto target="com.integrallis.techconf.dto.PresentationAbstract" useProxy="yes">  
+        <sources>
+		    <!-- *********************************************************** -->
+            <!-- Abstract                                                    -->
+            <!-- *********************************************************** -->
+	        <source type="com.integrallis.techconf.domain.Abstract">
+	            <mapping property="id" />
+	            <mapping property="title" />
+	            <mapping property="body" />
+	            <mapping from="presentationLevel.id" to="presentationLevelId" /> 
+	            <mapping from="presentationType.id" to="presentationTypeId" /> 
+	            <mapping from="presenter.id" to="presenterId" /> 
+	            <mapping from="presentationTopic.id" to="presentationTopicId" />             
+	            <mapping from="track.id" to="trackId" />
+	            <mapping from="abstractStatus.name" to="status" />
+		    </source>
+        </sources>    
+		<!-- *********************************************************** -->
+		<!-- Comparator                                                  -->
+		<!-- *********************************************************** -->
+        <comparator useSuper="false" useReflection="false">
+            <compare property="id" />
+        </comparator>  
+	</dto>
+</dtos>

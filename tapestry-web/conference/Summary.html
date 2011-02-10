@@ -1,0 +1,68 @@
+<html jwcid="@ConferenceBorder" title="Conference Summary">
+    
+  <!-- conference description and abstract submission dates -->  
+  <h3>Welcome</h3>
+  <span jwcid="conferenceSubTitle">Conference Subtitle</span>  
+  <br/><br/>
+  Accepting abstracts from <span jwcid="abstractsStartDate">Start Date</span> until <span jwcid="abstractsEndDate">Start Date</span>    
+  
+  <!-- conference tracks -->
+  <hr/>
+  <h3>Tracks</h3>
+  <span jwcid="tracks">
+    <p>
+      <a href="#" jwcid="trackLink"><span jwcid="@Insert" value="ognl:track.title">Track</span></a>
+    </p>
+  </span>
+  <span jwcid="$remove$">    
+    <p><a href ="">Track 1</a></p>
+    <p><a href ="">Track 2</a></p>
+  </span>
+
+  <!-- Featured speakers-->
+  <hr/>
+  <h3>Featured Speakers</h3>
+  <table cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+  	  <td>	
+        <table cellspacing="0" cellpadding="4" border="0">	
+          <tr>
+            <span jwcid="speakers">	        
+              <td width="80" valign="top" class="secondary">
+                <div align="center">
+                  <div style="text-align: left">                  
+                    <a href="../speakers/PresenterBio.html" jwcid="@ExternalLink" page="speakers/PresenterBio" parameters="ognl:speaker.presenterId" border="0">
+                      <img jwcid="speakerPicture" border="0" src="../speakerImages/1.jpg"/><br/>
+                      <span jwcid="speakerName">Speaker Name</span><br/>
+                    </a>
+                    <span jwcid="ifCompany">
+                      <a href="#"><span jwcid="speakerCompany">Some Company, Inc.</span></a>		
+                    </span>
+                  </div>
+                </div>
+              </td>
+            </span>   
+          </tr>    
+        </table>
+      </td>
+    </tr>
+  </table>
+	    
+  <!-- News -->
+  <hr/>
+  <h3 id="news">Conference News</h3>
+  <span jwcid="news">
+    <p><b>(<span jwcid="newsDate">MM/dd/yyyy</span>) <span jwcid="newsTitle">Newsline</span></b> -- <span jwcid="newsBody">News Item Summary</span></p>
+  </span>        
+    	
+  <!-- Weblogs -->
+  <hr/>
+  <h3>Weblogs</h3>
+  <span jwcid="blogs">
+    <p class="secondary">
+      <b><a href="#"><span jwcid="blogTitle">Blog Title</span></a></b> <nobr>--</nobr> 
+      <i>posted on <span jwcid="blogDate">blog date</span></i>
+    </p>               
+  </span>
+							
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dtos>
+    <!-- *********************************************************** -->
+    <!-- SessionInfo                                                 -->
+    <!-- *********************************************************** -->
+    <dto target="com.integrallis.techconf.dto.SessionInfo" useProxy="yes">  
+        <sources>
+		    <!-- *********************************************************** -->
+            <!-- Session                                                     -->
+            <!-- *********************************************************** -->
+	        <source type="com.integrallis.techconf.domain.Session">
+	            <mapping from="id" to="sessionId" />
+	            <mapping property="presentation" />
+	            <mapping from="room.name" to="roomName" />
+	            <mapping property="dateTimeBegin" />
+	            <mapping property="dateTimeEnd" />
+	            <mapping property="conferenceId" />       
+		    </source>
+        </sources>       
+		<!-- *********************************************************** -->
+		<!-- Comparator                                                  -->
+		<!-- *********************************************************** -->
+        <comparator useSuper="false" useReflection="false">
+            <compare property="sessionId" />
+        </comparator>  
+	</dto>
+</dtos>

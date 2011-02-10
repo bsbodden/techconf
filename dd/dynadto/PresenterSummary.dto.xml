@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dtos>
+    <!-- *********************************************************** -->
+    <!-- PresenterSummary                                            -->
+    <!-- *********************************************************** -->
+    <dto target="com.integrallis.techconf.dto.PresenterSummary" useProxy="yes">  
+        <sources>
+		    <!-- *********************************************************** -->
+            <!-- Presenter                                                   -->
+            <!-- *********************************************************** -->
+	        <source type="com.integrallis.techconf.domain.Presenter">
+	            <!-- mappings -->
+	            <mapping from="id" to="presenterId" />
+		   </source>
+        </sources>
+		<!-- *********************************************************** -->
+		<!-- Expressions                                                 -->
+		<!-- *********************************************************** -->        
+        <expressions>
+            <expression target="Name" value="param.getFirstName() + util.space() + param.getLastName()" />
+            <expression target="Company" value="util.build('com.integrallis.techconf.dto.Link', param)" />
+        </expressions>         
+		<!-- *********************************************************** -->
+		<!-- Comparator                                                  -->
+		<!-- *********************************************************** -->
+        <comparator useSuper="false" useReflection="false">
+            <compare property="presenterId" />
+        </comparator>  
+	</dto>
+</dtos>

@@ -1,0 +1,4 @@
+<mbean code="org.dynadto.jboss.deployment.DynaDTOService" name="org.dynadto:service=DynaDTOService">
+    <attribute name="BuilderFactoryName">java:dynadto/BuilderFactory</attribute>
+    <attribute name="TestMappings">false</attribute>
+</mbean>

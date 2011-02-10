@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.integrallis.techconf.domain">
+	<class name="Zipcode" table="zipcode">
+		<id
+			column="ZIP"
+			name="Zip"
+			type="integer"
+		/>
+		<property
+			column="CITY"
+			length="30"
+			name="City"
+			not-null="true"
+			type="string"
+		 />
+		<property
+			column="STATE"
+			length="2"
+			name="State"
+			not-null="true"
+			type="string"
+		 />
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<dtos>
+    <!-- *********************************************************** -->
+    <!-- BookInfo                                                    -->
+    <!-- *********************************************************** -->
+    <dto target="com.integrallis.techconf.dto.BookInfo" useProxy="yes">
+        <sources>
+		    <!-- *********************************************************** -->
+            <!-- Book                                                        -->
+            <!-- *********************************************************** -->    
+            <source type="com.integrallis.techconf.domain.Book" automap="true" />
+        </sources>   
+		<!-- *********************************************************** -->
+		<!-- Comparator                                                  -->
+		<!-- *********************************************************** -->
+        <comparator useSuper="false" useReflection="false">
+            <compare property="id" />
+        </comparator>           
+    </dto>
+</dtos>

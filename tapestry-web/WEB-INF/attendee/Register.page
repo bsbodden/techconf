@@ -1,0 +1,189 @@
+<?xml version="1.0"?>
+<!DOCTYPE page-specification PUBLIC
+  "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
+  "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+
+<page-specification>
+    
+    <!-- User Service -->
+    <inject property="userService" 
+    		object="service:app.UserService"/>
+    
+    <inject property="locationLookupService" 
+    		object="service:app.LocationLookupService"/>    
+
+    <inject property="builderFactory" 
+		object="service:app.DynaBuilderFactory"/>
+    
+    <property name="zipCodeList" initial-value="ognl:new java.util.ArrayList()" />
+		    		    		
+	<!-- Delegates to do the validation -->    		
+	<bean name="delegate" class="org.apache.tapestry.valid.ValidationDelegate" property="delegate"/>
+
+    <!-- Display Each of the Input components -->
+    <!-- Home Phone -->
+	<component id="homePhone" type="TextField">
+	    <binding name="value" value="ognl:user.homePhone"/>
+		<binding name="validators" value="validators:required"/>
+		<binding name="displayName" value="literal:Home Phone"/>
+	</component>
+	
+	<component id="homePhoneLabel" type="FieldLabel">
+		<binding name="field" value="component:homePhone"/>	
+	</component>	
+
+    <!-- Password -->  
+	<component id="password" type="TextField">
+	    <binding name="value" value="ognl:user.password"/>
+		<binding name="validators" value="validators:required,maxLength=16[You must enter a password no longer than 16 characters]"/>
+		<binding name="displayName" value="literal:Password"/>
+        <binding name="hidden" value="true"/>
+	</component>
+	
+	<component id="passwordLabel" type="FieldLabel">
+		<binding name="field" value="component:password"/>	
+	</component>	
+    
+    <!-- Fax -->
+  	<component id="fax" type="TextField">
+	    <binding name="value" value="ognl:user.fax"/>
+		<binding name="validators" value="validators:required"/>
+		<binding name="displayName" value="literal:Fax"/>
+	</component>
+	
+	<component id="faxLabel" type="FieldLabel">
+		<binding name="field" value="component:fax"/>	
+	</component>	
+    
+    <!-- Work Phone -->    
+	<component id="workPhone" type="TextField">
+	    <binding name="value" value="ognl:user.workPhone"/>
+		<binding name="validators" value="validators:required"/>
+		<binding name="displayName" value="literal:Work Phone"/>
+	</component>
+	
+	<component id="workPhoneLabel" type="FieldLabel">
+		<binding name="field" value="component:workPhone"/>	
+	</component>	
+    
+    <!-- Last Name -->    
+	<component id="lastName" type="TextField">
+	    <binding name="value" value="ognl:user.lastName"/>
+		<binding name="validators" value="validators:required"/>
+		<binding name="displayName" value="literal:Last Name"/>
+	</component>
+	
+	<component id="lastNameLabel" type="FieldLabel">
+		<binding name="field" value="component:lastName"/>	
+	</component>	                
+
+    <!-- First Name -->    
+	<component id="firstName" type="TextField">
+	    <binding name="value" value="ognl:user.firstName"/>
+		<binding name="validators" value="validators:required"/>
+		<binding name="displayName" value="literal:First Name"/>
+	</component>
+	
+	<component id="firstNameLabel" type="FieldLabel">
+		<binding name="field" value="component:firstName"/>	
+	</component>
+    
+    <!-- Email -->    
+	<component id="email" type="TextField">
+	    <binding name="value" value="ognl:user.email"/>
+		<binding name="validators" value="validators:required,email[You must enter a valid email]"/>
+		<binding name="displayName" value="literal:Email"/>
+	</component>
+	
+	<component id="emailLabel" type="FieldLabel">
+		<binding name="field" value="component:email"/>	
+	</component>		
+    
+    <!-- Address Info -->
+    <!-- Street Address -->    
+    <component id="streetAddress" type="TextField">
+	    <binding name="value" value="ognl:user.address.streetAddress"/>
+		<binding name="validators" value="validators:required"/>
+		<binding name="displayName" value="literal:Street Address"/>
+	</component>
+	
+	<component id="streetAddressLabel" type="FieldLabel">
+		<binding name="field" value="component:streetAddress"/>	
+	</component>
+    
+    
+    <!-- State -->
+    <component id="state" type="TextField">
+	    <binding name="value" value="ognl:user.address.state"/>
+		<binding name="validators" value="validators:required"/>
+		<binding name="displayName" value="literal:State"/>
+	</component>
+	
+	<component id="stateLabel" type="FieldLabel">
+		<binding name="field" value="component:state"/>	
+	</component>		
+    
+    <!-- Zip Code -->
+	<component id="zipCode" type="tacos:Autocompleter" >
+		<binding name="displayName" value="literal:Zip Code" />
+        <binding name="value" value="ognl:user.address.zipCode" />
+		<binding name="listSource" value="ognl:zipCodeList" />
+		<binding name="listener" value="listener:searchZipCodes" />
+        <binding name="listItemRenderer" value="ognl:listRenderer" />
+        <binding name="direct" value="ognl:true" />
+        <binding name="frequency" value="literal:0.4" />
+        <binding name="afterUpdateElement"> 
+          literal:<![CDATA[
+            function handleAutoComplete(field, htmlElement) {             
+              var span = dojo.dom.collectionToArray(htmlElement.getElementsByTagName("SPAN"))[0];
+			  var spanBody = dojo.dom.textContent(span);			 
+			  var values = spanBody.split(",");
+			  var city = dojo.string.trim(values[0]);
+			  var state = dojo.string.trim(values[1]);		  
+			  document.getElementById("city").value=city;
+			  document.getElementById("state").value=state;
+			  dojo.graphics.htmlEffects.highlight(document.getElementById("city"), [255,255,184], 500, 500);
+			  dojo.graphics.htmlEffects.highlight(document.getElementById("state"), [255,255,184], 500, 500);
+			}
+            ]]>
+        </binding>
+      
+	</component>
+    <!--    
+    <component id="zipCode" type="TextField">
+	    <binding name="value" value="ognl:user.address.zipCode"/>
+		<binding name="validators" value="validators:required"/>
+		<binding name="displayName" value="literal:Zip Code"/>
+	</component>
+	-->
+	
+	<component id="zipCodeLabel" type="FieldLabel">
+		<binding name="field" value="component:zipCode"/>	
+	</component>
+    
+    <!-- City -->
+    <component id="city" type="TextField">
+	    <binding name="value" value="ognl:user.address.city"/>
+		<binding name="validators" value="validators:required"/>
+		<binding name="displayName" value="literal:City"/>
+	</component>
+	
+	<component id="cityLabel" type="FieldLabel">
+		<binding name="field" value="component:city"/>	
+	</component>
+    
+    <!-- Apt Number -->
+    <component id="aptNumber" type="TextField">
+	    <binding name="value" value="ognl:user.address.aptNumber"/>
+		<binding name="validators" value="validators:required"/>
+		<binding name="displayName" value="literal:Apartment Number"/>
+	</component>
+	
+	<component id="aptNumberLabel" type="FieldLabel">
+		<binding name="field" value="component:aptNumber"/>	
+	</component>
+    
+    <!-- assets -->
+    <asset name="btn_submit" path="images/btn-submit2.gif" />
+    
+</page-specification>

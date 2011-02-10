@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE page-specification PUBLIC
+  "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
+  "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+
+<page-specification>
+    
+    <property name="session"/>
+    
+    <component id="sessions" type="Foreach">
+		<binding name="value" value="ognl:session"/>		
+		<binding name="source" value="ognl:sessionsForTrack"/>
+	</component>
+  
+</page-specification>

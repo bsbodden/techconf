@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE page-specification PUBLIC
+  "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
+  "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+
+<page-specification>
+    
+    <property name="session"/>
+    
+    <component id="sessions" type="Foreach">
+		<binding name="value" value="ognl:session"/>		
+		<binding name="source" value="ognl:conferenceSessions"/>
+	</component>
+    
+    <!-- All the components for the page -->
+    <component id="title" type="Insert">
+        <binding name="value" value="ognl:session.presentation.title"/>
+    </component>
+
+    <component id="presenter" type="Insert">
+        <binding name="value" value="literal:Nusairat, Joseph"/>
+    </component>
+    
+    <component id="timeBegin" type="Insert">
+        <binding name="value" value="ognl:session.dateTimeBegin"/>
+    </component>
+    
+    <component id="timeEnd" type="Insert">
+        <binding name="value" value="ognl:session.dateTimeEnd"/>
+    </component>
+    
+    <component id="roomName" type="Insert">
+        <binding name="value" value="ognl:session.roomName"/>
+    </component>                        
+
+	<component id="topic" type="Insert">
+        <binding name="value" value="ognl:session.presentation.topic"/>
+    </component>                          
+</page-specification>

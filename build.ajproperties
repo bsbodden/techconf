@@ -1,0 +1,4 @@
+src.includes = src/java/,\
+               src/aspects/,\
+               src/j2ee/,\
+               src/test/

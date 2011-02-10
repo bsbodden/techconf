@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.integrallis.techconf.domain">
+	<class name="Room" table="room">
+		<id
+			column="PK_ID"
+			name="Id"
+			type="integer"
+		>
+			<generator class="identity" />
+		</id>
+		<property
+			column="NOTES"
+			length="64"
+			name="Notes"
+			not-null="false"
+			type="string"
+		 />
+		<property
+			column="NAME"
+			length="32"
+			name="Name"
+			not-null="false"
+			type="string"
+		 />
+		<property
+			column="CAPACITY"
+			length="11"
+			name="Capacity"
+			not-null="false"
+			type="integer"
+		 />
+
+		<many-to-one
+			class="Venue"
+			name="Venue"
+			not-null="true"
+		>
+			<column name="FK_VENUE_ID" />
+		</many-to-one>
+	</class>
+</hibernate-mapping>

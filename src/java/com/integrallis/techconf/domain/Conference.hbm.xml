@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.integrallis.techconf.domain">
+	<class name="Conference" table="conference">
+		<id
+			column="PK_ID"
+			name="Id"
+			type="integer"
+		>
+			<generator class="identity" />
+		</id>
+		<property
+			length="19"
+			name="AbstractSubmissionStartDate"
+			not-null="true"
+			type="timestamp"
+		 />
+		<property
+			length="64"
+			name="Name"
+			not-null="true"
+			type="string"
+		 />
+		<property
+			name="Description"
+			not-null="true"
+			type="string"
+		 />
+		<property
+			length="19"
+			name="AbstractSubmissionEndDate"
+			not-null="true"
+			type="timestamp"
+		 />
+		<property
+			length="19"
+			name="EndDate"
+			not-null="true"
+			type="timestamp"
+		 />
+		<property
+			length="19"
+			name="StartDate"
+			not-null="true"
+			type="timestamp"
+		 />
+
+		<many-to-one
+			class="Venue"
+			name="Venue"
+			cascade="persist,save-update"
+		>
+			<column name="FK_VENUE_ID" />
+		</many-to-one>
+		<set inverse="true" name="Tracks" cascade="all" lazy="false">
+			<key column="FK_CONFERENCE_ID" />
+			<one-to-many class="Track" />
+		</set>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<dtos>
+    <!-- *********************************************************** -->
+    <!-- Location                                                    -->
+    <!-- *********************************************************** -->
+    <dto target="com.integrallis.techconf.dto.Location" useProxy="yes">  
+        <sources>
+		    <!-- *********************************************************** -->
+            <!-- Zipcode                                                     -->
+            <!-- *********************************************************** -->    
+            <source type="com.integrallis.techconf.domain.Zipcode">
+            	<mapping property="zip" />
+	            <mapping property="city" />	            
+	            <mapping property="state" /> 	        
+		    </source>            
+        </sources> 
+		<!-- *********************************************************** -->
+		<!-- Expressions                                                 -->
+		<!-- *********************************************************** -->        
+        <expressions>
+            <expression target="zip" value="param.getZip().toString()" />
+            <expression target="toString" value="param.getZip().toString()" />
+        </expressions>         
+		<!-- *********************************************************** -->
+		<!-- Comparator                                                  -->
+		<!-- *********************************************************** -->
+        <comparator useSuper="false" useReflection="false">
+            <compare property="zip" />
+        </comparator>             
+    </dto>
+</dtos>

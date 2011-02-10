@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE page-specification PUBLIC
+  "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
+  "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+
+<page-specification>
+        
+    <!-- All the components for the page -->
+    <component id="title" type="Insert">
+        <binding name="value" value="ognl:presentation.title"/>
+    </component>
+
+	<component id="level" type="Insert">
+        <binding name="value" value="ognl:presentation.level"/>
+    </component>
+    
+	<component id="type" type="Insert">
+        <binding name="value" value="ognl:presentation.type"/>
+    </component>
+
+	<component id="topic" type="Insert">
+        <binding name="value" value="ognl:presentation.topic"/>
+    </component>
+
+	<component id="track" type="Insert">
+        <binding name="value" value="ognl:presentation.track"/>
+    </component>
+
+	<component id="description" type="Insert">
+        <binding name="value" value="ognl:presentation.description"/>
+    </component>
+
+	<component id="presenterName" type="Insert">
+        <binding name="value" value="ognl:presentation.presenterName"/>
+    </component>                   
+                 
+</page-specification>

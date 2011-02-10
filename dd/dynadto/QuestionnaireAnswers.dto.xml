@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dtos>
+    <!-- *********************************************************** -->
+    <!-- QuestionnaireAnswers                                        -->
+    <!-- *********************************************************** -->
+    <dto target="com.integrallis.techconf.dto.QuestionnaireAnswers" useProxy="yes">  
+        <sources>
+		    <!-- *********************************************************** -->
+            <!-- Answers                                                     -->
+            <!-- *********************************************************** -->
+	        <source type="com.integrallis.techconf.domain.Answers">
+	            <mapping property="userId" />
+	            <mapping property="questionnaireId" />
+				<mapping-collection 
+				    action="list"
+				    collection-property="answers"
+				    target="answers"
+				    target-type="com.integrallis.techconf.dto.AnswerInfo" 				                                   
+                />
+		    </source>
+        </sources>       
+		<!-- *********************************************************** -->
+		<!-- Comparator                                                  -->
+		<!-- *********************************************************** -->
+        <comparator useSuper="false" useReflection="false">
+            <compare property="userId" />
+            <compare property="questionnaireId" />
+        </comparator>  
+	</dto>
+</dtos>

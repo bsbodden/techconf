@@ -1,0 +1,31 @@
+<!DOCTYPE suite SYSTEM "http://beust.com/testng/testng-1.0.dtd" >
+  
+<suite name="TestNG Test Suite" verbose="1">
+  <test name="TechConf Tests">
+    <groups>
+        <run>
+            <exclude name="persistence" />
+        </run>
+    </groups>
+    
+    <classes>
+      <class name="com.integrallis.techconf.dto.ConferenceSummaryTest" />
+      <class name="com.integrallis.techconf.dto.PresenterSummaryTest" />
+      <class name="com.integrallis.techconf.dto.NewsItemTest" />
+      <class name="com.integrallis.techconf.dto.PresentationSummaryTest" />
+      <class name="com.integrallis.techconf.dto.SessionInfoTest" />
+      <class name="com.integrallis.techconf.dto.UserSummaryTest" />      
+      <class name="com.integrallis.techconf.dto.UserInfoTest" />
+      <class name="com.integrallis.techconf.dto.BlogEntryTest" /> 
+      <class name="com.integrallis.techconf.dto.QuestionInfoTest" />      
+      <class name="com.integrallis.techconf.dto.LocationTest" /> 
+      <class name="com.integrallis.techconf.dao.hibernate.HibernateExceptionConverterAspectTest" />
+      <class name="com.integrallis.techconf.domain.AddressTest" />
+      <class name="com.integrallis.techconf.domain.ConferenceTest" />
+      <class name="com.integrallis.techconf.domain.PrincingRuleTest" />
+      <class name="com.integrallis.techconf.domain.UserAttendeePresenterTest" />
+      <class name="com.integrallis.techconf.ejb.LocationLookupServiceBeanTest" />
+    </classes>
+  </test>
+
+</suite>

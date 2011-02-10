@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<dtos>
+    <!-- *********************************************************** -->
+    <!-- UserSummary                                                 -->
+    <!-- *********************************************************** -->
+    <dto target="com.integrallis.techconf.dto.UserSummary" useProxy="yes">
+		<!-- *********************************************************** -->
+		<!-- Expressions                                                 -->
+		<!-- *********************************************************** -->        
+        <expressions>
+            <expression target="Id" value="param.getId()" />
+            <expression target="DisplayName" value="param.getFirstName() + util.space() + param.getLastName()" />
+            <expression target="Presenter" value="util.instanceOf('com.integrallis.techconf.domain.Presenter', param)" />
+        </expressions>         
+		<!-- *********************************************************** -->
+		<!-- Comparator                                                  -->
+		<!-- *********************************************************** -->
+        <comparator useSuper="false" useReflection="false">
+            <compare property="id" />
+        </comparator>           
+    </dto>
+</dtos>

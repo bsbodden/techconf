@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.integrallis.techconf.domain">
+	<class name="Presentation" table="presentation">
+		<id
+			column="PK_ID"
+			name="Id"
+			type="integer"
+		>
+			<generator class="identity" />
+		</id>
+		<many-to-one
+			class="Abstract"
+			name="Abstract"
+			not-null="true"
+		>
+			<column name="FK_ABSTRACT_ID" />
+		</many-to-one>
+		<set inverse="true" name="Sessions">
+			<key column="FK_PRESENTATION_ID" />
+			<one-to-many class="Session" />
+		</set>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<!DOCTYPE page-specification PUBLIC
+  "-//Apache Software Foundation//Tapestry Specification 4.0//EN" 
+  "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+
+<page-specification>    
+    <!-- =================================================================== -->
+    <!-- Service and State objects Injection                                 -->
+    <!-- =================================================================== --> 
+	<inject property="blogEntries" type="state" object="blog-entries"/>
+    
+    <!-- =================================================================== -->
+    <!-- Date Formatters                                                     -->
+    <!-- =================================================================== -->    
+   	<property name="dateStartFormater"
+		initial-value="new java.text.SimpleDateFormat('EEEE, MMMM d ')"/>
+       
+   	<property name="dateEndFormater"
+		initial-value="new java.text.SimpleDateFormat('EEEE, MMMM d yyyy')"/>
+       
+   	<property name="newsDateFormater"
+		initial-value="new java.text.SimpleDateFormat('MM/dd/yyyy')"/>       
+       
+    <!-- =================================================================== -->
+    <!-- Conference Summary Fields                                           -->
+    <!-- =================================================================== -->        
+	<component id="abstractsStartDate" type="Insert">
+		<binding name="value" value="ognl:userInformation.conferenceSummary.abstractSubmissionStartDate"/>
+		<binding name="format" value="ognl:dateStartFormater"/>
+	</component>       
+	
+	<component id="abstractsEndDate" type="Insert">
+		<binding name="value" value="ognl:userInformation.conferenceSummary.abstractSubmissionEndDate"/>
+        <binding name="format" value="ognl:dateEndFormater"/>
+	</component>
+    
+	<component id="conferenceSubTitle" type="Insert">
+		<binding name="value" value="ognl:userInformation.conferenceSummary.conferenceSubtitle"/>
+	</component>      
+    
+    <!-- =================================================================== -->
+    <!-- Speaker Properties                                                  -->
+    <!-- =================================================================== -->                     	
+    <property name="speaker"/>	
+    
+    <component id="speakerPicture" type="Any">	
+    	<binding name="src" value="ognl:speakerImage"/>
+   	</component>
+    
+	<component id="speakerName" type="Insert">
+		<binding name="value" value="ognl:speaker.name"/>        
+    </component>
+    
+	<component id="speakerCompany" type="Insert">
+		<binding name="value" value="ognl:speaker.company.name"/>
+    </component> 
+       
+    <component id="ifCompany" type="If">
+		<binding name="condition" value="ognl:speaker.company"/>
+	</component>    
+       
+	<component id="speakers" type="For">
+		<binding name="value" value="ognl:speaker"/>		
+		<binding name="source" value="ognl:userInformation.conferenceSummary.featuredSpeakers"/>
+	</component>
+ 
+    <!-- =================================================================== -->
+    <!-- Tracks                                                              -->
+    <!-- =================================================================== --> 
+ 	<property name="track"/>  
+      
+    <component id="trackLink" type="ExternalLink">
+        <binding name="page" value="literal:conference/Track"/>
+        <binding name="parameters" value="ognl:track.id"/>
+    </component>
+    
+	<component id="tracks" type="For">
+		<binding name="value" value="ognl:track"/>		
+		<binding name="source" value="ognl:userInformation.conferenceSummary.tracks"/>
+	</component>
+	
+    <!-- =================================================================== -->
+    <!-- News                                                                -->
+    <!-- =================================================================== --> 
+    <property name="newsItem"/>	
+        
+    <component id="news" type="For">
+		<binding name="value" value="ognl:newsItem"/>		
+		<binding name="source" value="ognl:userInformation.conferenceSummary.news"/>
+	</component>
+
+    <component id="newsTitle" type="Insert">
+        <binding name="value" value="ognl:newsItem.title"/>		
+    </component>
+    
+    <component id="newsBody" type="Insert">
+        <binding name="value" value="ognl:newsItem.body"/>		
+    </component>
+    
+    <component id="newsDate" type="Insert">
+        <binding name="value" value="ognl:newsItem.date"/>
+        <binding name="format" value="ognl:newsDateFormater"/>		
+    </component>    
+        
+    <!-- =================================================================== -->
+    <!-- Blogs                                                               -->
+    <!-- =================================================================== -->
+    <property name="blog"/>
+    
+    <component id="blogDate" type="Insert">
+		<binding name="value" value="ognl:blog.publishedDate"/>    	
+    </component>
+    
+    <component id="blogTitle" type="Insert">
+		<binding name="value" value="ognl:blog.title"/>    	
+    </component>
+    
+    <component id="blogDescription" type="Insert">
+		<binding name="value" value="ognl:blog.description"/>    	
+    </component> 
+           
+    <component id="blogLink" type="Insert">
+		<binding name="value" value="ognl:blog.link"/>    	
+    </component> 
+               
+    <component id="blogs" type="For">
+        <binding name="value" value="ognl:blog"/>
+		<binding name="source" value="ognl:blogEntries"/>
+	</component>
+    		
+</page-specification>

@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.integrallis.techconf.domain">
+	<class name="Abstract" table="abstract">
+		<id
+			column="PK_ID"
+			name="Id"
+			type="integer"
+		>
+			<generator class="identity" />
+		</id>
+		<property
+			column="TITLE"
+			length="64"
+			name="Title"
+			not-null="true"
+			type="string"
+		 />
+		<property
+			column="BODY"
+			name="Body"
+			not-null="true"
+			type="string"
+		 />
+
+		<many-to-one
+			class="PresentationLevel"
+			name="PresentationLevel"
+			not-null="true"
+		>
+			<column name="FK_PRESENTATIONLEVEL_ID" />
+		</many-to-one>
+		<many-to-one
+			class="AbstractStatus"
+			name="AbstractStatus"
+			not-null="true"
+		>
+			<column name="FK_ABSTRACTSTATUS_ID" />
+		</many-to-one>
+		<many-to-one
+			class="PresentationType"
+			name="PresentationType"
+			not-null="true"
+		>
+			<column name="FK_PRESENTATIONTYPE_ID" />
+		</many-to-one>
+		<many-to-one
+			class="Presenter"
+			name="Presenter"
+			not-null="true"
+		>
+			<column name="FK_PRESENTER_ID" />
+		</many-to-one>
+		<many-to-one
+			class="PresentationTopic"
+			name="PresentationTopic"
+			not-null="true"
+		>
+			<column name="FK_PRESENTATIONTOPIC_ID" />
+		</many-to-one>
+		<many-to-one
+			class="Track"
+			name="Track"
+			not-null="true"
+		>
+			<column name="FK_TRACK_ID" />
+		</many-to-one>		
+	</class>
+</hibernate-mapping>

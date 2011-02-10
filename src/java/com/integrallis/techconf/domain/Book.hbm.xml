@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.integrallis.techconf.domain">
+	<class name="Book" table="book">
+		<id
+			column="PK_ID"
+			name="Id"
+			type="integer"
+		>
+			<generator class="identity" />
+		</id>
+		<property
+			column="TITLE"
+			length="64"
+			name="Title"
+			not-null="true"
+			type="string"
+		 />
+		<property
+			column="DESCRIPTION"
+			length="255"
+			name="Description"
+			not-null="true"
+			type="string"
+		 />
+		<property
+			column="AUTHORS"
+			length="128"
+			name="Authors"
+			not-null="false"
+			type="string"
+		 />			 
+		<property
+			column="PURCHASEURL"
+			length="64"
+			name="PurchaseUrl"
+			not-null="false"
+			type="string"
+		 />
+		<property
+			column="INBOOKSTORE"
+			name="InBookstore"
+			not-null="true"
+			type="boolean"
+		 />	
+		<property 
+		    column="FK_USER_ID"
+		    name="UserId"
+		    not-null="true"
+		    type="integer"
+		/>	
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.integrallis.techconf.domain">
+	<class name="AttendeeGroup" table="attendeegroup">
+		<id
+			column="PK_ID"
+			name="Id"
+			type="integer"
+		>
+			<generator class="identity" />
+		</id>		
+		<property
+            column="COMPANY"
+			length="64"
+			name="Company"
+			type="string"
+		/>
+		<property
+		    column="COMPANYURL"
+		    length="64"
+		    name="CompanyURL"
+		    type="string"
+		/>		
+		
+		<property
+			column="PHONE"
+			length="12"
+			name="Phone"
+			not-null="false"
+			type="string"
+		 />
+		<property
+			column="FAX"
+			length="12"
+			name="Fax"
+			not-null="false"
+			type="string"
+		 />
+		<property
+			column="CONTACT"
+			length="64"
+			name="Contact"
+			not-null="false"
+			type="string"
+		 />
+		<property
+			column="EMAIL"
+			length="64"
+			name="Email"
+			not-null="true"
+			type="string"
+		 />	
+		<property
+			column="PRINCINGPERATTENDEE"
+			length="22"
+			name="PricingPerAttendee"
+			not-null="true"
+			type="java.lang.Double"
+		 />		 	 
+        <component name="Address" class="CompanyAddress">
+		    <property
+			    column="STREETADDRESS"
+                length="64"
+			    name="StreetAddress"
+			    not-null="false"
+			    type="string"
+		    />
+		    <property
+			    column="STATE"
+			    length="2"
+			    name="State"
+			    not-null="false"
+			    type="string"
+		    />
+		    <property
+			    column="ZIPCODE"
+			    length="10"
+			    name="ZipCode"
+			    not-null="false"
+			    type="string"
+		    />
+		    <property
+			    column="CITY"
+			    length="32"
+			    name="City"
+			    not-null="false"
+			    type="string"
+		    />
+	    </component>
+	</class>
+</hibernate-mapping>

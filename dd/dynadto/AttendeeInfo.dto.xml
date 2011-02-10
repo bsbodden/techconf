@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<dtos>
+    <!-- *********************************************************** -->
+    <!-- AttendeeInfo                                                -->
+    <!-- *********************************************************** -->
+    <dto target="com.integrallis.techconf.dto.AttendeeInfo" useProxy="yes">
+        <sources>
+		    <!-- *********************************************************** -->
+            <!-- Attendee                                                    -->
+            <!-- *********************************************************** -->    
+            <source type="com.integrallis.techconf.domain.Attendee">
+                <mapping property="id" />
+	            <mapping property="homePhone" />
+	            <mapping property="password" />
+            	<mapping property="fax" />
+	            <mapping property="workPhone" />
+	            <mapping property="lastName" />
+	            <mapping property="firstName" />
+	            <mapping property="email" /> 
+	            <mapping from="isAlumnus" to="setAlumnus" />    
+	            <mapping from="address" to="address" />           
+	            <mapping from="group.id" to="attendeeGroupId" />  
+            </source>
+        </sources>          
+		<!-- *********************************************************** -->
+		<!-- Comparator                                                  -->
+		<!-- *********************************************************** -->
+        <comparator useSuper="false" useReflection="false">
+            <compare property="id" />
+        </comparator>           
+    </dto>
+</dtos>

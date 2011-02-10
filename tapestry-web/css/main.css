@@ -1,0 +1,363 @@
+html {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: white;
+	min-width: 600px;
+}
+
+body, td {
+	font-family: Verdana, sans-serif;
+	font-size: 9pt;
+}
+
+form {
+	padding: 0;
+	margin: 0;
+}
+
+.even {
+	background-color: #f0f0f0;
+}
+
+.even a img, .odd a img {
+    border: none;
+}
+
+.odd {
+	background-color: #f9f9f9;
+}
+
+#wrap {
+	margin: 0 auto;
+}
+
+#header {
+	height: 18px;
+	border-bottom: 2px solid #999;
+	background-color: #222;
+}
+
+#header .title {
+	padding-left: 4px;
+	color: #fc0;
+	font-size: 11px;
+	font-weight: bold;
+	text-align: left;
+}
+
+#header .links {
+	float: right;
+	padding-right: 4px;
+	color: #666;
+}
+
+#header .links a {
+	color: #ccc;
+	font-size: 11px;
+	font-weight: normal;
+	text-decoration: none;
+}
+
+#header .links a:hover {
+	color: #fff;
+	text-decoration: underline;
+}
+
+#footer {
+	clear: both;
+	margin-top: 2em;
+	border-top:1px solid #ccc;
+	background-color: #eee;
+	font-size: 7pt;
+	color: #666;
+	text-align: right;
+}
+
+#module_nav {
+	width: 100%;
+	min-width: 165px;
+	margin-bottom: 5px;
+    clear: both;
+    display: block;
+}
+
+#module_nav ul, #module_nav li {
+    display: inline;
+    list-style: none;
+    padding-left: 0px;
+    margin-left: 0px;
+}
+
+#module_nav ul li.here a, #module_nav ul li.here a:hover {
+    color: #900;
+    border-bottom: 1px dotted #aaa;
+    background-color: none;
+}
+
+#module_nav a {
+	display: block;
+    float: left;
+	padding: 3px 5px;
+	margin: 7px;
+	border-bottom: 1px dotted #aaa;
+    text-align: left;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    font-size: 11px;
+    letter-spacing: 0.10em;
+}
+
+#module_nav a:hover {
+    color: #900;
+    border-bottom: 1px solid #000;
+    background-color: #efefef;
+}
+
+#navlist {
+	background-color: #ccc;
+	margin: 0;
+	padding: 4px 0 20px 10px;
+	border-bottom: 1px solid #000;
+}
+
+#navlist ul, #navlist li {
+	margin: 0;
+	padding: 0;
+	display: inline;
+	list-style-type: none;
+}
+
+#navlist a:link, #navlist a:visited {
+	float: left;
+	line-height: 14px;
+	font-weight: bold;
+	margin: 0 10px 4px 10px;
+	text-decoration: none;
+	color: #333;
+}
+
+#navlist a:link#current, #navlist a:visited#current, #navlist a:hover {
+	border-bottom: 4px solid black;
+	padding-bottom: 2px;
+	background-color: transparent;
+	color: black;
+}
+
+#navlist a:hover {
+	color: black;
+}
+
+#note {
+	float: right;
+	width: 26em;
+	margin-right: 1em;
+	margin-bottom: 1em;
+	background-color: #eeeee0;
+	padding: 1em;
+	border: 2px dotted #ccc;
+}
+
+#note p, #note h1, #note h2, #note h3, #note h4 {
+	padding: 0;
+	margin-top: 0;
+}
+
+#note h1, #note h2 {
+	border-bottom: 2px dotted #900;
+	font-size: 14pt;
+}
+
+#note p b {
+    color: #900;
+    font-weight: bold;
+}
+
+#note h3 {
+	border-bottom: 1px dotted #900;
+}
+
+#treeArea {
+	-moz-border-radius: 5px;
+    margin-left: 4px;
+    margin-bottom: 1em;
+	display: block;
+	float: left;
+}
+
+#tree {
+    float: left;
+	white-space: nowrap;
+	width: 350px;
+    height: 350px;
+    overflow: scroll;
+	position: relative;
+    padding: 0px 0px 0px 0px;
+}
+
+#tree a {
+	text-decoration: none;
+    display: block;
+    float: left;
+    color: #222;
+}
+
+#tree a:hover {
+    background-color: #fc0;
+}
+
+#tree .selected {
+	font-weight: bold;
+}
+
+DIV.treeBlock {
+    display: block;
+    float: left;
+    clear: left;
+    width: 100%;
+}
+
+DIV.treeBlock img {
+    display: block;
+    float: left;
+}
+
+#tree div.odd {
+	background-color: #efefef;
+	display: block;
+	float: left;
+	width: 100%;
+	clear:none;
+}
+
+#tree div.even {
+	background-color: #FFFFFF;
+	display: block;
+	float: left;
+	width: 100%;
+	clear: none;
+}
+
+#countries a { text-decoration: none; }
+#countries a:hover { text-decoration: underline; }
+
+#countries .detailHeading { font-weight: bold; }
+#countries .even, #countries .odd { -moz-border-radius: 4px; padding: 2px;}
+
+#countries a.toggle {
+	font-size: 7pt;
+	text-align: right;
+	float: right;
+}
+
+#countries .flag {
+	float: left;
+	margin: 2em 0.5em 0 0;
+	text-align: center;
+	width: 52px;
+	font-size: 7pt;
+	font-weight: bold;
+	color: #666;
+}
+
+#countries .countryDetail {
+	border-top: 1px dotted #999;
+	font-size: 8pt;
+	padding: 0 1em 1em 1em;
+}
+
+#countries {
+	margin-left: 1em;
+	width: 280px;
+	line-height: 13pt;
+}
+
+
+#partialWait {
+	display: none;
+	position: absolute;
+	background-color: white;
+	top: 0;
+	right: 0;
+	font-size: 8pt;
+}
+
+
+#notes {
+	margin-left: 1em;
+	width: 300px;
+}
+
+.note {
+	background-color: #eeeeee;
+	padding: 6px;
+	margin-bottom: 6px;
+	-moz-border-radius: 4px;
+	display:block;
+	float:left;
+	clear:left;
+	width: 100%;
+}
+
+#notes a.addNote {
+    float:left;
+    display:block;
+    width: 100%;
+    clear:left;
+}
+
+.note a { text-decoration: none; }
+.note a:hover { text-decoration: underline; }
+
+.note .removeNote {
+	float: right;
+	color: #c00;
+	font-size: smaller;
+}
+
+.note input {
+	font-size: 8pt;
+	font-family: Verdana, sans-serif;
+}
+
+.note h2 {
+    font-size: 8pt;
+    margin: 0 0 1em 0;
+    border-bottom: 1px dotted #999;
+}
+
+.note h2 i {
+    font-style: normal;
+    font-weight: bold;
+    color: #999;
+}
+
+.note h4 {
+    font-size: 8pt;
+    margin:  0 0 1em 0;
+    font-weight: normal;
+}
+
+.note br {
+    clear:both;
+    margin-top: 14px;
+}
+
+.dialog {
+	background : #eee;
+	border : 1px solid #999;
+	-moz-border-radius : 5px;
+	padding : 4px;
+}
+
+.progressStart {
+    -moz-border-radius: 4px;
+    background-color: #eeeeee;
+    width: 300px;
+    padding: 6px;
+}

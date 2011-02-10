@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE component-specification PUBLIC
+  "-//Apache Software Foundation//Tapestry Specification 4.0//EN"
+  "http://jakarta.apache.org/tapestry/dtd/Tapestry_4_0.dtd">
+
+<component-specification allow-body="no" allow-informal-parameters="no">
+    
+    <parameter name="delegate" required="yes"/>
+    
+    <property name="error"/>
+    
+    <component id="ifErrors" type="Conditional">
+<!--        <binding name="element" value="span"/>-->
+        <binding name="condition" value="delegate.hasErrors"/>
+    </component>
+    
+    <component id="loop" type="Foreach">
+        <binding name="source">
+            delegate.fieldTracking.{? inError}.{errorRenderer}
+        </binding>
+<!--        <binding name="element" value="li"/>-->
+        <binding name="value" value="error"/>
+    </component>
+    
+    <component id="renderError" type="Delegator">
+        <binding name="delegate" value="error"/>
+    </component>
+    
+    
+</component-specification>

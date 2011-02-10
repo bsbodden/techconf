@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<!-- =================================================================== -->
+<!-- Spring Application Context for TechConf Application Service Tier    --> 
+<!-- By Brian Sam-Bodden                                                 -->
+<!-- =================================================================== -->
+<beans>
+    <!-- =================================================================== -->
+    <!-- DynaDTO BuilderFactory                                              -->
+    <!-- =================================================================== -->
+	<bean id="builderFactory" class="org.dynadto.spring.LocalBuilderFactoryBean">	
+		<property name="mappingDirectoryLocations">
+			<list>	
+			    <value>/WEB-INF/dynadto</value>	
+			</list>
+		</property>	
+	</bean>  	
+	
+    <!-- =================================================================== -->
+    <!-- JavaMail Sender                                                     -->
+    <!-- =================================================================== -->		
+	
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="username"><value>techconf@gmail.com</value></property>
+        <property name="password"><value>ctechastronomy</value></property>
+        <property name="protocol"><value>smtp</value></property>
+        <property name="host"><value>smtp.gmail.com</value></property>
+        <property name="port"><value>465</value></property>
+        <property name="javaMailProperties">
+			<props>
+                <prop key="mail.store.protocol">pop3</prop>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.user">techconf@gmail.com</prop>
+                <prop key="mail.pop3.host">pop.gmail.com</prop>
+                <prop key="mail.smtp.host">smtp.gmail.com</prop>
+                <prop key="mail.smtp.port">465</prop>
+                <prop key="mail.smtp.user">techconf@gmail.com</prop>
+                <prop key="mail.smtp.password">ctechastronomy</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.from">noreply@techconf.org</prop>
+                <prop key="mail.debug">true</prop>
+                <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+                <prop key="mail.smtp.socketFactory.port">465</prop>							
+			</props>                                                                                       
+        </property>      
+    </bean>
+    
+    <!-- =================================================================== -->
+    <!-- Services                                                            -->
+    <!-- =================================================================== -->	
+    
+	<bean id="mailService" 
+	    class="com.integrallis.techconf.spring.service.MailServiceImpl"
+	    singleton="false">	
+	    <property name="mailSender"><ref bean="mailSender"/></property>   
+	</bean>	    
+	
+    <!-- =================================================================== -->
+    <!-- Service Targets                                                     -->
+    <!-- =================================================================== -->		
+	
+	<bean id="conferenceServiceTarget" 
+	    class="com.integrallis.techconf.spring.service.ConferenceServiceImpl"
+	    singleton="false"
+	    init-method="initialization">	      
+	    <property name="conferenceDAO"><ref bean="conferenceDAO"/></property>
+	    <property name="newsDAO"><ref bean="newsDAO"/></property>
+	    <property name="userDAO"><ref bean="userDAO"/></property>
+	    <property name="presentationDAO"><ref bean="presentationDAO"/></property>
+	    <property name="blogDAO"><ref bean="blogDAO"/></property>
+	    <property name="builderFactory"><ref bean="builderFactory"/></property>
+	</bean>			
+	
+	<bean id="questionnaireServiceTarget" 
+	    class="com.integrallis.techconf.spring.service.QuestionnaireServiceImpl"
+	    singleton="false"
+	    init-method="initialization">	      
+	    <property name="questionnaireDAO"><ref bean="questionnaireDAO"/></property>
+	    <property name="builderFactory"><ref bean="builderFactory"/></property>
+	</bean>	
+	
+	<bean id="scheduleServiceTarget" 
+	    class="com.integrallis.techconf.spring.service.ScheduleServiceImpl"
+	    singleton="false"
+	    init-method="initialization">	
+	    <property name="scheduleDAO"><ref bean="scheduleDAO"/></property>
+	    <property name="userDAO"><ref bean="userDAO"/></property>
+	    <property name="presentationDAO"><ref bean="presentationDAO"/></property>	
+	    <property name="builderFactory"><ref bean="builderFactory"/></property>      
+	</bean>		
+	
+	<bean id="userServiceTarget" 
+	    class="com.integrallis.techconf.spring.service.UserServiceImpl"
+	    singleton="false"
+	    init-method="initialization">	
+	    <property name="userDAO"><ref bean="userDAO"/></property> 
+	    <property name="builderFactory"><ref bean="builderFactory"/></property>   
+	    <property name="mailService"><ref bean="mailService"/></property> 
+	</bean>	
+	
+    <!-- =================================================================== -->
+    <!-- Transaction-wrapped Services                                        -->
+    <!-- =================================================================== -->		
+	
+	<bean id="conferenceService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager"><ref bean="transactionManager"/></property>
+		<property name="target"><ref bean="conferenceServiceTarget"/></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="submit*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>	
+	
+	<bean id="questionnaireService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager"><ref bean="transactionManager"/></property>
+		<property name="target"><ref bean="questionnaireServiceTarget"/></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="submit*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>	
+	
+	<bean id="scheduleService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager"><ref bean="transactionManager"/></property>
+		<property name="target"><ref bean="scheduleServiceTarget"/></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="schedule*">PROPAGATION_REQUIRED</prop>
+				<prop key="unschedule*">PROPAGATION_REQUIRED</prop>
+				<prop key="create*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>	
+	
+	<bean id="userService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager"><ref bean="transactionManager"/></property>
+		<property name="target"><ref bean="userServiceTarget"/></property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="get*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="login*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="register*">PROPAGATION_REQUIRED</prop>
+				<prop key="send*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>		
+	
+</beans>

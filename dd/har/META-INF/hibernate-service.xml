@@ -1,0 +1,12 @@
+<mbean code="org.jboss.hibernate.jmx.Hibernate" name="jboss.har:service=Hibernate">
+    <attribute name="DatasourceName">java:/jdbc/techconf</attribute>
+    <attribute name="SessionFactoryName">java:/hibernate/SessionFactory</attribute>
+    <attribute name="Dialect">org.hibernate.dialect.MySQLDialect</attribute>
+    <attribute name="CacheProviderClass">org.hibernate.cache.HashtableCacheProvider</attribute>
+    <!-- attribute name="Hbm2ddlAuto">create-drop</attribute -->
+    <attribute name="ShowSqlEnabled">true</attribute>
+    <!-- attribute name="TransactionStrategy">net.sf.hibernate.transaction.JTATransactionFactory</attribute -->
+    <!-- attribute name="TransactionManagerLookupStrategy">net.sf.hibernate.transaction.JBossTransactionManagerLookup</attribute -->
+    <!-- attribute name="UseOuterJoin">false</attribute -->
+    <!-- attribute name="UserTransactionName">UserTransaction</attribute -->
+</mbean>

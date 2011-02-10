@@ -1,0 +1,21 @@
+
+<html jwcid="@ConferenceBorder" title="Sessions">
+    
+<span jwcid="sessions">    		        
+	<p>
+		<span class="vevent">
+			<b>
+               <a class="url" jwcid="@ExternalLink" page="conference/Presentation" 
+					parameters="ognl:session.presentation.presentationId">	                    
+					<span class="summary"><span jwcid="title"/></span>
+				</a>
+            </b><br />				
+			<span jwcid="presenter"/><br />				
+			<b>Time: </b><span jwcid="timeBegin"/> - <span jwcid="timeEnd"/><br />
+			<span class='location'><b>Location:</b> <span jwcid="roomName"/><br /></span>
+			<b>Track:</b><span jwcid="topic"/><br />	
+		</span>
+	</p>			
+</span>
+        
+</html>    

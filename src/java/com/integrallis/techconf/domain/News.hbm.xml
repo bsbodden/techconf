@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.integrallis.techconf.domain">
+	<class name="News" table="news">
+		<id
+			column="PK_ID"
+			name="Id"
+			type="integer"
+		>
+			<generator class="identity" />
+		</id>
+		<property
+			column="TITLE"
+			length="32"
+			name="Title"
+			not-null="false"
+			type="string"
+		 />
+		<property
+			column="PUBLISHED"
+			name="IsPublished"
+			not-null="true"
+			type="boolean"
+		 />
+		<property
+			column="BODY"
+			name="Body"
+			not-null="false"
+			type="string"
+		 />
+		<property
+			column="DATE"
+			length="19"
+			name="Date"
+			not-null="true"
+			type="timestamp"
+		 />
+		<property
+			column="CREATEDON"
+			length="19"
+			name="CreatedOn"
+			not-null="true"
+			type="timestamp"
+		 />
+		<property
+			column="REMOVEON"
+			length="19"
+			name="RemoveOn"
+			not-null="true"
+			type="timestamp"
+		 />
+		<property
+			column="GLOBAL"
+			name="IsGlobal"
+			type="boolean"
+		/>	
+		<property 
+		    column="FK_USER_ID"
+		    name="UserId"
+		    not-null="true"
+		    type="integer"
+		/>
+		<property 
+		    column="FK_CONFERENCE_ID"
+		    name="ConferenceId"
+		    type="integer"
+		/>		
+	</class>
+</hibernate-mapping>

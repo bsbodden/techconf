@@ -1,0 +1,38 @@
+<!DOCTYPE tiles-definitions PUBLIC
+    "-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+    "http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+    
+<tiles-definitions>
+  <definition name="conferenceList" page="/WEB-INF/jsp/template.jsp">
+    <put name="pageTitle" value="Conferences" />
+    <put name="body" value="/WEB-INF/jsp/conferenceList.jsp" />
+  </definition>
+  <definition name="conferenceDetail" page="/WEB-INF/jsp/conferenceTemplate.jsp">
+    <put name="pageTitle" value="Conference Detail" />
+    <put name="body" value="/WEB-INF/jsp/conferenceDetail.jsp" />    
+  </definition>
+  <definition name="keynoteList" page="/WEB-INF/jsp/conferenceTemplate.jsp">
+    <put name="pageTitle" value="Conferences" />
+    <put name="body" value="/WEB-INF/jsp/keynoteList.jsp" />
+  </definition> 
+  <definition name="speakerList" page="/WEB-INF/jsp/conferenceTemplate.jsp">
+    <put name="pageTitle" value="Conferences" />
+    <put name="body" value="/WEB-INF/jsp/speakerList.jsp" />
+  </definition> 
+  <definition name="speakerDetail" page="/WEB-INF/jsp/conferenceTemplate.jsp">
+    <put name="pageTitle" value="Conference Detail" />
+    <put name="body" value="/WEB-INF/jsp/speakerDetail.jsp" />    
+  </definition>  
+  <definition name="sessionList" page="/WEB-INF/jsp/conferenceTemplate.jsp">
+    <put name="pageTitle" value="Conferences" />
+    <put name="body" value="/WEB-INF/jsp/sessionList.jsp" />
+  </definition>
+  <definition name="sessionDetail" page="/WEB-INF/jsp/conferenceTemplate.jsp">
+    <put name="pageTitle" value="Conference Detail" />
+    <put name="body" value="/WEB-INF/jsp/sessionDetail.jsp" />    
+  </definition>   
+  <definition name="blogList" page="/WEB-INF/jsp/conferenceTemplate.jsp">
+    <put name="pageTitle" value="Conferences" />
+    <put name="body" value="/WEB-INF/jsp/blogList.jsp" />
+  </definition>      
+</tiles-definitions>

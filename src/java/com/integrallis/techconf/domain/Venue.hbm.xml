@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.integrallis.techconf.domain">
+	<class name="Venue" table="venue" lazy="false">
+		<id
+			column="PK_ID"
+			name="Id"
+			type="integer"
+		>
+			<generator class="identity" />
+		</id>
+		<property
+			column="FAX"
+			length="12"
+			name="Fax"
+			not-null="false"
+			type="string"
+		 />
+		<property
+			column="NAME"
+			length="32"
+			name="Name"
+			not-null="false"
+			type="string"
+		 />
+		<property
+			column="PHONE"
+			length="12"
+			name="Phone"
+			not-null="false"
+			type="string"
+		 />
+
+		<many-to-one
+			class="Address"
+			name="Address"
+			not-null="true"
+			cascade="all"
+			lazy="false"
+		>
+			<column name="FK_ADDRESS_ID" />
+		</many-to-one>
+		<set inverse="true" name="Booths">
+			<key column="FK_VENUE_ID" />
+			<one-to-many class="Booth" />
+		</set>
+		<set inverse="true" name="Rooms">
+			<key column="FK_VENUE_ID" />
+			<one-to-many class="Room" />
+		</set>
+	</class>
+</hibernate-mapping>

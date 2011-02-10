@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dtos>
+    <!-- *********************************************************** -->
+    <!-- QuestionInfo                                                -->
+    <!-- *********************************************************** -->
+    <dto target="com.integrallis.techconf.dto.QuestionInfo" useProxy="yes">  
+        <sources>
+		    <!-- *********************************************************** -->
+            <!-- Question                                                    -->
+            <!-- *********************************************************** -->
+	        <source type="com.integrallis.techconf.domain.Question">
+	            <mapping property="id" />
+	            <mapping property="text" />
+	            <mapping from="questionType.id" to="questionTypeId" />
+	            <mapping-collection 
+				    action="list"
+				    collection-property="questionChoices"
+				    element="id"
+				    target="questionChoiceIds"
+				    target-type="java.lang.Integer"				                                   
+                />
+		    </source>
+        </sources>       
+		<!-- *********************************************************** -->
+		<!-- Comparator                                                  -->
+		<!-- *********************************************************** -->
+        <comparator useSuper="false" useReflection="false">
+            <compare property="id" />
+        </comparator>  
+	</dto>
+</dtos>

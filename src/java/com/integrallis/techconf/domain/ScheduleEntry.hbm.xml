@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.integrallis.techconf.domain">
+	<class name="ScheduleEntry" table="scheduleentry">
+		<id
+			column="PK_ID"
+			name="Id"
+			type="integer"
+		>
+			<generator class="identity" />
+		</id>
+		<property
+			length="64"
+			name="Name"
+		 />
+		<property
+			length="32"
+			name="Description"
+		 />
+
+		<many-to-one
+			class="User"
+			name="User"
+		>
+			<column name="FK_USER_ID" />
+		</many-to-one>
+		<many-to-one
+			class="Session"
+			name="Session"
+		>
+			<column name="FK_SESSION_ID" />
+		</many-to-one>
+		<set inverse="true" name="Reminders">
+			<key column="FK_SCHEDULEENTRY_ID" />
+			<one-to-many class="Reminder" />
+		</set>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<dtos>
+    <!-- *********************************************************** -->
+    <!-- PresenterInfo                                               -->
+    <!-- *********************************************************** -->
+    <dto target="com.integrallis.techconf.dto.PresenterInfo" useProxy="yes">
+        <sources>
+		    <!-- *********************************************************** -->
+            <!-- Presenter                                                   -->
+            <!-- *********************************************************** -->    
+            <source type="com.integrallis.techconf.domain.Presenter">           
+                <mapping property="id" />
+	            <mapping property="homePhone" />
+	            <mapping property="password" />
+            	<mapping property="fax" />
+	            <mapping property="workPhone" />
+	            <mapping property="lastName" />
+	            <mapping property="firstName" />
+	            <mapping property="email" />
+	            <mapping property="bio" /> 
+	            <mapping property="company" />
+	            <mapping property="companyURL" />
+	            <!-- todo: handle BlogLink blogLink --> 
+	            <mapping from="address" to="address" />   	                      
+            </source>
+        </sources>        
+		<!-- *********************************************************** -->
+		<!-- Comparator                                                  -->
+		<!-- *********************************************************** -->
+        <comparator useSuper="false" useReflection="false">
+            <compare property="id" />
+        </comparator>           
+    </dto>
+</dtos>

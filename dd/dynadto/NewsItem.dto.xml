@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<dtos>
+    <!-- *********************************************************** -->
+    <!-- NewsItem                                                    -->
+    <!-- *********************************************************** -->
+    <dto target="com.integrallis.techconf.dto.NewsItem" useProxy="yes">
+        <sources>
+		    <!-- *********************************************************** -->
+            <!-- News                                                        -->
+            <!-- *********************************************************** -->    
+            <source type="com.integrallis.techconf.domain.News" automap="true" />
+        </sources>   
+		<!-- *********************************************************** -->
+		<!-- Comparator                                                  -->
+		<!-- *********************************************************** -->
+        <comparator useSuper="false" useReflection="false">
+            <compare property="id" />
+        </comparator>           
+    </dto>
+</dtos>

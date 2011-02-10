@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<!-- =================================================================== -->
+<!-- Spring Application Context for TechConf Application Data Tier       --> 
+<!-- By Brian Sam-Bodden                                                 -->
+<!-- =================================================================== -->
+<beans>
+    <!-- =================================================================== -->
+    <!-- Resolve placeholder properties ${...} in beans from values in       -->
+    <!-- properties file                                                     -->
+    <!-- =================================================================== -->
+	<bean id="configurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+		    <value>/WEB-INF/jdbc.properties</value>
+		</property>
+	</bean>
+	
+    <!-- =================================================================== -->
+    <!-- Data Source                                                         -->
+    <!-- =================================================================== -->	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+		    <value>${jdbc.driverClassName}</value>
+		</property>
+		<property name="url">
+		    <value>${jdbc.url}</value>
+		</property>
+		<property name="username">
+		    <value>${jdbc.username}</value>
+		</property>
+		<property name="password">
+		    <value>${jdbc.password}</value>
+		</property>
+	</bean>	
+	    
+    <!-- =================================================================== -->
+    <!-- Hibernate SessionFactory                                            -->
+    <!-- =================================================================== -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+		    <ref local="dataSource"/>
+		</property>
+		
+		<property name="mappingDirectoryLocations">
+			<list>	
+			    <value>classpath:/com/integrallis/techconf/domain</value>	
+			</list>
+		</property>
+		
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+				<prop key="hibernate.cglib.use_reflection_optimizer">true</prop>			
+			</props>
+		</property>		
+	</bean>  
+	
+    <!-- =================================================================== -->
+    <!-- Spring's HibernateTemplate                                          -->
+    <!-- =================================================================== -->	
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate"> 
+		<property name="sessionFactory"><ref bean="sessionFactory"/></property> 
+	</bean> 
+	
+    <!-- =================================================================== -->
+    <!-- Spring-Hibernate DAOs                                               -->
+    <!-- =================================================================== -->	
+    	
+	<bean id="blogDAO" class="com.integrallis.techconf.spring.dao.BlogDAOImpl">
+		<property name="hibernateTemplate"><ref bean="hibernateTemplate"/></property> 
+	</bean>		
+	
+	<bean id="conferenceDAO" class="com.integrallis.techconf.spring.dao.ConferenceDAOImpl">
+		<property name="hibernateTemplate"><ref bean="hibernateTemplate"/></property> 
+	</bean>	
+
+	<bean id="newsDAO" class="com.integrallis.techconf.spring.dao.NewsDAOImpl">
+		<property name="hibernateTemplate"><ref bean="hibernateTemplate"/></property> 
+	</bean>	
+	
+	<bean id="presentationDAO" class="com.integrallis.techconf.spring.dao.PresentationDAOImpl">
+		<property name="hibernateTemplate"><ref bean="hibernateTemplate"/></property> 
+	</bean>	
+	
+	<bean id="questionnaireDAO" class="com.integrallis.techconf.spring.dao.QuestionnaireDAOImpl">
+		<property name="hibernateTemplate"><ref bean="hibernateTemplate"/></property> 
+	</bean>					
+	
+	<bean id="scheduleDAO" class="com.integrallis.techconf.spring.dao.ScheduleDAOImpl">
+		<property name="hibernateTemplate"><ref bean="hibernateTemplate"/></property> 
+	</bean>					
+
+	<bean id="userDAO" class="com.integrallis.techconf.spring.dao.UserDAOImpl">
+		<property name="hibernateTemplate"><ref bean="hibernateTemplate"/></property> 
+	</bean>		
+	
+    <!-- =================================================================== -->
+    <!-- Hibernate Transaction Manager                                       -->
+    <!-- =================================================================== -->		
+	
+	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory"><ref local="sessionFactory"/></property>
+	</bean>	
+	
+</beans>
