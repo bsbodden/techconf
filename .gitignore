@@ -6,3 +6,8 @@ build
 bin
 output
 *.class
+temp
+build.properties
+bin
+docs
+testng-failures.xml
